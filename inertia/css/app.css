@@ -1,0 +1,125 @@
+@import url(https://fonts.bunny.net/css?family=inter:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+@import url(https://fonts.bunny.net/css?family=jetbrains-mono:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i);
+@import "tailwindcss";
+
+@source "../views";
+
+/* PP Mori Regular */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* PP Mori Regular Italic */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* PP Mori Extralight */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-Extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* PP Mori Extralight Italic */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-ExtralightItalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* PP Mori SemiBold */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* PP Mori SemiBold Italic */
+@font-face {
+  font-family: 'PP Mori';
+  src: url('../../resources/fonts/PP_Mori/PPMori-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+
+@theme {
+  --font-sans: 'PP Mori', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --tracking-normal: -0.04em;
+
+  --color-orange: #FD7317;
+  --color-purple: #7F2CCB;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-background: #F8F8F8;
+  --color-grey: #969696;
+
+}

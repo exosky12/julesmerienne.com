@@ -5,15 +5,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+
   <title inertia>AdonisJS x Inertia x React</title>
 
   @stack('dumper')
   @viteReactRefresh()
   @inertiaHead()
-  @vite(['inertia/app/app.tsx', `inertia/pages/${page.component}.tsx`])
+  @vite(['inertia/app/app.tsx', `inertia/pages/${page.component}.tsx`, ])
 </head>
 
-<body class="min-h-screen w-screen font-sans">
+<body class="min-h-screen bg-background w-screen tracking-normal font-sans">
   @inertia()
 </body>
 

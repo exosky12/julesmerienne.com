@@ -5,7 +5,7 @@ export default function Home() {
     <>
       <Head title="Homepage" />
 
-      <h1>Hello world</h1>
+      <h1>Salut, je suis Jules Merienne!</h1>
     </>
   )
 }
