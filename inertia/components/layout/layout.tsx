@@ -99,9 +99,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
       </div>
 
-      {children}
+      <div className="w-5/6 mx-auto mt-32">{children}</div>
 
-      <footer className="text-center bg-slate-500 text-sm font-mono">
+      <footer className="text-center mt-96 bg-slate-500 text-sm font-mono">
         <p>© {new Date().getFullYear()} Jules Merienne</p>
       </footer>
     </>
