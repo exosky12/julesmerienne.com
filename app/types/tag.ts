@@ -5,5 +5,4 @@ export enum Tag {
   Logiciel = 'Logiciel',
   Design = 'Design',
   Automatisation = 'Automatisation',
-  Autre = 'Autre',
 }

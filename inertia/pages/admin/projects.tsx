@@ -13,7 +13,7 @@ import { getEnumOptions } from '~/utils/enums'
 interface ProjectFormData {
   name: string
   description: string
-  images: string[]
+  images: File[]
   links: string[]
   tags: Tag[]
   technologies: Technology[]
@@ -25,31 +25,71 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects }: ProjectsProps) {
-  const { data, setData, post, processing, errors } = useForm<ProjectFormData>({
-    name: '',
-    description: '',
-    images: [],
-    links: [],
-    tags: [],
-    technologies: [],
-    published: false,
-  })
+  const { data, setData, post, processing, errors, progress, setError, clearErrors } =
+    useForm<ProjectFormData>({
+      name: '',
+      description: '',
+      images: [],
+      links: [],
+      tags: [Tag.Tous],
+      technologies: [],
+      published: false,
+    })
 
   const tagOptions = getEnumOptions(Tag)
   const technologyOptions = getEnumOptions(Technology)
 
   function submit(e: React.FormEvent) {
     e.preventDefault()
-    post('/admin/projects')
+    clearErrors()
+
+    let hasErrors = false
+
+    if (!data.name.trim()) {
+      setError('name', 'Le nom est requis')
+      hasErrors = true
+    }
+    if (!data.description.trim()) {
+      setError('description', 'La description est requise')
+      hasErrors = true
+    }
+    if (data.images.length === 0) {
+      alert('Veuillez ajouter au moins une image')
+      hasErrors = true
+    }
+    if (data.links.length === 0) {
+      setError('links', 'Au moins un lien est requis')
+      hasErrors = true
+    }
+    if (data.tags.length === 0) {
+      setError('tags', 'Au moins un tag est requis')
+      hasErrors = true
+    }
+    if (data.technologies.length === 0) {
+      setError('technologies', 'Au moins une technologie est requise')
+      hasErrors = true
+    }
+
+    if (hasErrors) return
+
+    post('/admin/projects', {
+      forceFormData: true,
+    })
   }
 
+  React.useEffect(() => {
+    return () => {
+      data.images.forEach((file) => URL.revokeObjectURL(URL.createObjectURL(file)))
+    }
+  }, [data.images])
+
   return (
-    <div className="min-h-screen p-8 font-sans">
+    <div className="min-h-screen space-y-24 p-8 font-sans">
       <Head title="Admin - Créer un projet" />
 
       <ProjectsList projects={projects} />
 
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-3xl  mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-black mb-2">Nouveau Projet</h1>
           <p className="text-black/60">Ajoutez un nouveau projet à votre portfolio.</p>
@@ -88,22 +128,75 @@ export default function Projects({ projects }: ProjectsProps) {
               )}
             </div>
 
-            <Input
-              type="text"
-              label="Images (URLs séparées par des virgules)"
-              value={data.images.join(', ')}
-              onChange={(e) =>
-                setData(
-                  'images',
-                  e.target.value
-                    .split(',')
-                    .map((s) => s.trim())
-                    .filter(Boolean)
-                )
-              }
-              error={errors.images}
-              placeholder="https://..., https://..."
-            />
+            <div className="flex flex-col gap-3">
+              <label className="text-sm font-medium text-black/70 ml-1">Images du projet</label>
+              <div className="border-2 border-dashed border-black/10 rounded-xl p-8 text-center hover:bg-black/5 transition-colors cursor-pointer relative">
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setData('images', Array.from(e.target.files))
+                    }
+                  }}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div className="flex flex-col items-center gap-2 text-black/40">
+                  <span className="text-2xl">📷</span>
+                  <span className="text-sm">Glissez vos images ici ou cliquez pour parcourir</span>
+                </div>
+              </div>
+
+              {/* Image Previews */}
+              {data.images.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
+                  {data.images.map((file, index) => (
+                    <div key={index} className="relative aspect-video group">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Preview ${index}`}
+                        className="w-full h-full object-cover rounded-lg border border-black/5"
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setData(
+                            'images',
+                            data.images.filter((_, i) => i !== index)
+                          )
+                        }
+                        className="absolute top-1 right-1 bg-white/90 text-red-500 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:bg-white"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M18 6 6 18" />
+                          <path d="m6 6 12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {progress && (
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className="bg-black h-2.5 rounded-full transition-all duration-300"
+                    style={{ width: `${progress.percentage}%` }}
+                  ></div>
+                </div>
+              )}
+            </div>
 
             <Input
               type="text"

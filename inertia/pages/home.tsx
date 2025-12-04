@@ -16,7 +16,6 @@ export default function Home({ projects }: HomeProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Change variant every 400px of scroll
       const newVariant = Math.floor(window.scrollY / 400) % 6
       setVariant(newVariant)
     }
