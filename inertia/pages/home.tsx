@@ -5,6 +5,7 @@ import { ProjectsList } from '~/components/ProjectsList/projectsList'
 import type Project from '#models/project'
 import { About } from '~/components/About/about'
 import { useState, useEffect } from 'react'
+import { Skills } from '~/components/Skills/skills'
 
 interface HomeProps {
   projects: Project[]
@@ -39,6 +40,9 @@ export default function Home({ projects }: HomeProps) {
         </div>
         <div>
           <About />
+        </div>
+        <div>
+          <Skills />
         </div>
       </div>
     </>

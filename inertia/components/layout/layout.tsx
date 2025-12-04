@@ -34,6 +34,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
+                href="#skills"
+              >
+                Compétences
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                 href="#blog"
               >
                 Blog
@@ -86,6 +94,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               </Link>
             </li>
             <li>
+              <Link href="#skills" onClick={() => setOpen(false)}>
+                Compétences
+              </Link>
+            </li>
+            <li>
               <Link href="#blog" onClick={() => setOpen(false)}>
                 Blog
               </Link>
@@ -102,6 +115,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <div className="w-5/6 mx-auto mt-32">{children}</div>
+
+      <footer className='mt-24'>
+        <div className="w-5/6 mx-auto mt-32">
+          <p>© {new Date().getFullYear()} Jules Merienne. Tous droits réservés.</p>
+        </div>
+      </footer>
     </>
   )
 }
