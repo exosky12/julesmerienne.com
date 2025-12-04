@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
 const HomeController = () => import('#controllers/home_controller')
 const LoginController = () => import('#controllers/login_controller')
@@ -17,5 +18,12 @@ router.get('/', [HomeController, 'render'])
 
 router.get('/login', [LoginController, 'render'])
 router.post('/login', [LoginController, 'store'])
+router.get('/logout', [LoginController, 'destroy']).use(middleware.auth())
 
-router.get('/admin/projects', [ProjectsController, 'render'])
+router
+  .group(() => {
+    router.get('/projects', [ProjectsController, 'render'])
+    router.post('/projects', [ProjectsController, 'store'])
+  })
+  .prefix('/admin')
+  .use(middleware.auth())
