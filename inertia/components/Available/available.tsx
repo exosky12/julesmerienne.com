@@ -1,5 +1,3 @@
-import { Button } from '../Button/button'
-
 const AvailableIcon = () => {
   return (
     <span className="relative -z-10 flex items-center justify-center w-[13px] h-[13px] rounded-full bg-[rgba(0,255,121,0.48)] mr-1">
@@ -11,8 +9,9 @@ const AvailableIcon = () => {
 
 export const Available = () => {
   return (
-    <Button icon={<AvailableIcon />} variant="secondary">
+    <button className="border font-normal border-black text-black px-3.5 py-2.5 rounded-full inline-flex items-center text-base gap-2">
       Disponible
-    </Button>
+      <AvailableIcon />
+    </button>
   )
 }

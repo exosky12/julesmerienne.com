@@ -9,7 +9,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <header className="z-50 flex items-center justify-between w-5/6 mt-6 mx-auto">
-        <h2 className="font-mono font-bold text-lg">Jules Merienne</h2>
+        <h2 className="font-mono font-bold text-lg">
+          <Link href="/">Jules Merienne</Link>
+        </h2>
 
         <nav className="hidden md:block">
           <ul className="flex gap-5.5">
