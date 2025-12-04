@@ -3,6 +3,7 @@ import { Hero } from '~/components/Hero/hero'
 import { GridLayers } from '~/components/Grid/grid'
 import { ProjectsList } from '~/components/ProjectsList/projectsList'
 import type Project from '#models/project'
+import { About } from '~/components/About/about'
 
 interface HomeProps {
   projects: Project[]
@@ -18,6 +19,7 @@ export default function Home({ projects }: HomeProps) {
       <div className="flex flex-col gap-48">
         <Hero />
         <ProjectsList projects={projects} />
+        <About />
       </div>
     </>
   )

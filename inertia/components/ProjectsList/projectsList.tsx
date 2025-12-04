@@ -10,7 +10,7 @@ interface ProjectsProps {
 export const ProjectsList = ({ projects }: ProjectsProps) => {
   const tagOptions = getEnumOptions(Tag)
   return (
-    <div className="flex flex-col gap-5.5">
+    <section id="projects" className="flex flex-col gap-5.5">
       <div className="flex flex-col gap-10.5">
         <div className="flex flex-col gap-3.5">
           <h2 className="uppercase text-grey text-xl">Portfolio</h2>
@@ -43,6 +43,6 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }

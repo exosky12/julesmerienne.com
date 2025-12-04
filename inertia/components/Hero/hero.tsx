@@ -6,7 +6,9 @@ import { Available } from '../Available/available'
 export const Hero = () => {
   return (
     <section id="hero" className="flex md:ml-[20%] flex-col items-left justify-center gap-3">
-      <Avatar />
+      <div className="w-32 h-32">
+        <Avatar />
+      </div>
       <h1 className="font-semibold text-4xl md:text-5xl leading-[1.1]">
         Salut, je suis Jules Merienne! <br /> <span className="text-grey">Je suis</span>{' '}
         <span className="text-orange">Développeur</span> <span className="text-grey">&</span>{' '}
