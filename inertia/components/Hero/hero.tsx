@@ -5,7 +5,7 @@ import { Available } from '../Available/available'
 
 export const Hero = () => {
   return (
-    <section id="hero" className="flex md:ml-[20%] flex-col items-left justify-center gap-3">
+    <section id="hero" className="flex flex-col items-left justify-center gap-3">
       <div className="w-32 h-32">
         <Avatar />
       </div>
