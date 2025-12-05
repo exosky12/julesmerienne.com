@@ -11,6 +11,7 @@ import { getEnumOptions } from '~/utils/enums'
 interface ProjectFormData {
   name: string
   description: string
+  longDescription: string
   images: File[]
   existing_images: string[]
   links: string[]
@@ -29,6 +30,7 @@ export const ProjectForm = ({ project, onSuccess }: ProjectFormProps) => {
     useForm<ProjectFormData>({
       name: project?.name || '',
       description: project?.description || '',
+      longDescription: project?.longDescription || '',
       images: [],
       existing_images: project?.images || [],
       links: project?.links || [],
@@ -52,6 +54,10 @@ export const ProjectForm = ({ project, onSuccess }: ProjectFormProps) => {
     }
     if (!data.description.trim()) {
       setError('description', 'La description est requise')
+      hasErrors = true
+    }
+    if (!data.longDescription.trim()) {
+      setError('longDescription', 'La description détaillée est requise')
       hasErrors = true
     }
     if (data.images.length === 0 && data.existing_images.length === 0) {
@@ -127,21 +133,40 @@ export const ProjectForm = ({ project, onSuccess }: ProjectFormProps) => {
         />
 
         <div className="flex flex-col gap-1.5 w-full">
-          <label className="text-sm font-medium text-black/70 ml-1">Description</label>
+          <label className="text-sm font-medium text-black/70 ml-1">Description courte</label>
           <textarea
             className={`
                w-full px-4 py-3 rounded-xl bg-white border border-black/5 
                focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20
                placeholder:text-black/30 text-black transition-all duration-200
-               shadow-[0px_2px_4px_rgba(0,0,0,0.02)] min-h-[120px] resize-y
+               shadow-[0px_2px_4px_rgba(0,0,0,0.02)] min-h-[80px] resize-y
                ${errors.description ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : ''}
              `}
             value={data.description}
             onChange={(e) => setData('description', e.target.value)}
-            placeholder="Description détaillée du projet..."
+            placeholder="Description courte pour la liste..."
           />
           {errors.description && (
             <span className="text-xs text-red-500 ml-1 font-medium">{errors.description}</span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-1.5 w-full">
+          <label className="text-sm font-medium text-black/70 ml-1">Description détaillée</label>
+          <textarea
+            className={`
+               w-full px-4 py-3 rounded-xl bg-white border border-black/5 
+               focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20
+               placeholder:text-black/30 text-black transition-all duration-200
+               shadow-[0px_2px_4px_rgba(0,0,0,0.02)] min-h-[200px] resize-y
+               ${errors.longDescription ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : ''}
+             `}
+            value={data.longDescription}
+            onChange={(e) => setData('longDescription', e.target.value)}
+            placeholder="Description complète du projet..."
+          />
+          {errors.longDescription && (
+            <span className="text-xs text-red-500 ml-1 font-medium">{errors.longDescription}</span>
           )}
         </div>
 

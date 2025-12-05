@@ -13,6 +13,9 @@ export default class Project extends BaseModel {
   @column()
   declare description: string
 
+  @column()
+  declare longDescription: string | null
+
   @column({ prepare: (value: any[]) => JSON.stringify(value) })
   declare images: string[]
 

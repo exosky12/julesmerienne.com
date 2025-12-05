@@ -10,7 +10,15 @@ export default class ProjectsController {
   }
 
   async store({ request, response }: HttpContext) {
-    const data = request.only(['name', 'description', 'links', 'tags', 'technologies', 'published'])
+    const data = request.only([
+      'name',
+      'description',
+      'longDescription',
+      'links',
+      'tags',
+      'technologies',
+      'published',
+    ])
 
     const images = request.files('images', {
       size: '10mb',
@@ -34,7 +42,15 @@ export default class ProjectsController {
   }
   async update({ request, response, params }: HttpContext) {
     const project = await Project.findOrFail(params.id)
-    const data = request.only(['name', 'description', 'links', 'tags', 'technologies', 'published'])
+    const data = request.only([
+      'name',
+      'description',
+      'longDescription',
+      'links',
+      'tags',
+      'technologies',
+      'published',
+    ])
     const existingImages = request.input('existing_images', []) as string[]
 
     const images = request.files('images', {

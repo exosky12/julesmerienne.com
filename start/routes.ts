@@ -13,9 +13,12 @@ import { middleware } from './kernel.js'
 const HomeController = () => import('#controllers/home_controller')
 const LoginController = () => import('#controllers/login_controller')
 const ProjectsController = () => import('#controllers/projects_controller')
+const ProjectController = () => import('#controllers/project_controller')
 
 router.get('/', [HomeController, 'render'])
 router.post('/contact', [HomeController, 'sendEmail'])
+
+router.get('/projects/:id', [ProjectController, 'render'])
 
 router.get('/login', [LoginController, 'render'])
 router.post('/login', [LoginController, 'store'])

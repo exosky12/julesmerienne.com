@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import type Project from '#models/project'
 import { getEnumOptions } from '~/utils/enums'
-import { Tag } from '../../../app/types/tag'
-import { Button } from '../Button/button'
+import { Tag as TagEnum } from '../../../app/types/tag'
+import { Tag } from '~/components/Tag/tag'
 import { Link } from '@inertiajs/react'
 
 interface ProjectsProps {
@@ -10,18 +10,18 @@ interface ProjectsProps {
 }
 
 export const ProjectsList = ({ projects }: ProjectsProps) => {
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([Tag.Tous])
-  const tagOptions = getEnumOptions(Tag)
+  const [selectedTags, setSelectedTags] = useState<TagEnum[]>([TagEnum.Tous])
+  const tagOptions = getEnumOptions(TagEnum)
 
-  const handleTagClick = (tag: Tag) => {
-    if (tag === Tag.Tous) {
-      setSelectedTags([Tag.Tous])
+  const handleTagClick = (tag: TagEnum) => {
+    if (tag === TagEnum.Tous) {
+      setSelectedTags([TagEnum.Tous])
       return
     }
 
     let newTags = [...selectedTags]
 
-    if (newTags.includes(Tag.Tous)) {
+    if (newTags.includes(TagEnum.Tous)) {
       newTags = []
     }
 
@@ -32,15 +32,15 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
     }
 
     if (newTags.length === 0) {
-      setSelectedTags([Tag.Tous])
+      setSelectedTags([TagEnum.Tous])
     } else {
       setSelectedTags(newTags)
     }
   }
 
   const filteredProjects = projects.filter((project) => {
-    if (selectedTags.includes(Tag.Tous)) return true
-    return project.tags.some((tag) => selectedTags.includes(tag))
+    if (selectedTags.includes(TagEnum.Tous)) return true
+    return project.tags.some((tag) => selectedTags.includes(tag as unknown as TagEnum))
   })
 
   return (
@@ -52,18 +52,15 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
         </div>
         <div className="flex gap-2 flex-wrap">
           {tagOptions.map((tagOption) => {
-            const isSelected = selectedTags.includes(tagOption.value as Tag)
+            const isSelected = selectedTags.includes(tagOption.value as TagEnum)
             return (
-              <Button
+              <Tag
                 key={tagOption.value}
-                variant="secondary"
-                onClick={() => handleTagClick(tagOption.value as Tag)}
-                className={`transition-colors duration-200 ${
-                  isSelected ? 'bg-black text-white hover:bg-black/90' : 'hover:bg-black/5'
-                }`}
-              >
-                {tagOption.label}
-              </Button>
+                text={tagOption.label}
+                appearance={isSelected ? 'filled' : 'outline'}
+                onClick={() => handleTagClick(tagOption.value as TagEnum)}
+                className={`transition-all duration-200 ${!isSelected && 'hover:bg-black/5'}`}
+              />
             )
           })}
         </div>
@@ -73,10 +70,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
       </span>
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
         {filteredProjects.map((project) => (
-          <div
-            className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5"
-            key={project.id}
-          >
+          <div className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5" key={project.id}>
             <Link href={`/projects/${project.id}`}>
               <img
                 className="h-full w-full object-cover rounded-lg"
@@ -88,9 +82,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
               <h2 className="font-mono text-3xl">{project.name}</h2>
               <div className="flex gap-2 flex-wrap">
                 {project.tags.map((tag) => (
-                  <Button key={tag} variant="outline" className="text-sm py-1 px-3">
-                    {tag}
-                  </Button>
+                  <Tag key={tag} text={tag} appearance="outline" />
                 ))}
               </div>
               <p className="line-clamp-3">{project.description}</p>
