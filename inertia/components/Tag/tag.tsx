@@ -26,6 +26,7 @@ export const Tag = ({
     filled: 'bg-black text-white border border-black',
     outline: 'text-black border border-black',
   }
+  
 
   return (
     <span
