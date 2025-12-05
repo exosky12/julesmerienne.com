@@ -42,14 +42,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="#blog"
-              >
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                 href="#contact"
               >
                 Contact
@@ -59,7 +51,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </nav>
 
         <div className="hidden md:block">
-          <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+          <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
+            <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+          </a>
         </div>
 
         <button className="cursor-pointer md:hidden" onClick={() => setOpen(true)}>
@@ -99,11 +93,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               </Link>
             </li>
             <li>
-              <Link href="#blog" onClick={() => setOpen(false)}>
-                Blog
-              </Link>
-            </li>
-            <li>
               <Link href="#contact" onClick={() => setOpen(false)}>
                 Contact
               </Link>
@@ -111,12 +100,14 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           </ul>
         </nav>
 
-        <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+        <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
+          <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+        </a>
       </div>
 
       <div className="w-5/6 mx-auto mt-32">{children}</div>
 
-      <footer className='mt-24'>
+      <footer className="mt-24">
         <div className="w-5/6 mx-auto mt-32">
           <p>© {new Date().getFullYear()} Jules Merienne. Tous droits réservés.</p>
         </div>

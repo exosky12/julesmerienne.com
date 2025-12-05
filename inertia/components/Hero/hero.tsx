@@ -23,7 +23,9 @@ export const Hero = () => {
           <Available />
         </span>
       </h1>
-      <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+      <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
+        <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+      </a>
     </section>
   )
 }
