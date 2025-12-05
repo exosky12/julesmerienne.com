@@ -15,6 +15,7 @@ const LoginController = () => import('#controllers/login_controller')
 const ProjectsController = () => import('#controllers/projects_controller')
 
 router.get('/', [HomeController, 'render'])
+router.post('/contact', [HomeController, 'sendEmail'])
 
 router.get('/login', [LoginController, 'render'])
 router.post('/login', [LoginController, 'store'])

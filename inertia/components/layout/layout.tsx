@@ -107,11 +107,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <div className="w-5/6 mx-auto mt-32">{children}</div>
 
-      <footer className="mt-24">
-        <div className="w-5/6 mx-auto mt-32">
-          <p>© {new Date().getFullYear()} Jules Merienne. Tous droits réservés.</p>
-        </div>
-      </footer>
+      <footer className="mt-24"></footer>
     </>
   )
 }
