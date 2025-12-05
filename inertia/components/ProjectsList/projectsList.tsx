@@ -73,10 +73,13 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
       </span>
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
         {filteredProjects.map((project) => (
-          <div className="flex max-w-1/4 min-w-[250px] flex-col gap-5.5" key={project.id}>
+          <div
+            className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5"
+            key={project.id}
+          >
             <Link href={`/projects/${project.id}`}>
               <img
-                className="w-full h-full object-cover aspect-video rounded-lg"
+                className="h-full w-full object-cover rounded-lg"
                 src={project.images[0]}
                 alt={project.name}
               />

@@ -25,6 +25,8 @@ router
   .group(() => {
     router.get('/projects', [ProjectsController, 'render'])
     router.post('/projects', [ProjectsController, 'store'])
+    router.post('/projects/:id', [ProjectsController, 'update'])
+    router.delete('/projects/:id', [ProjectsController, 'destroy'])
   })
   .prefix('/admin')
   .use(middleware.auth())
