@@ -1,15 +1,35 @@
 import env from '#start/env'
 import { defineConfig } from '@adonisjs/lucid'
 
-const dbConfig = defineConfig({
-  connection: 'postgres',
+/*
+|--------------------------------------------------------------------------
+| Détermination de la configuration de connexion
+|--------------------------------------------------------------------------
+|
+| On vérifie si DATABASE_URL existe (Heroku).
+| Sinon, on utilise les variables locales (Docker).
+|
+*/
+const dbConnectionConfig = env.get('DATABASE_URL')
+  ? {
+      connectionString: env.get('DATABASE_URL'),
+      ssl: { rejectUnauthorized: false },
+    }
+  : {
+      host: env.get('DB_HOST'),
+      port: env.get('DB_PORT'),
+      user: env.get('DB_USER'),
+      password: env.get('DB_PASSWORD'),
+      database: env.get('DB_DATABASE'),
+      ssl: false,
+    }
+
+export default defineConfig({
+  connection: 'pg',
   connections: {
-    postgres: {
+    pg: {
       client: 'pg',
-      connection: {
-        connectionString: env.get('DATABASE_URL'),
-        ssl: env.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
-      },
+      connection: dbConnectionConfig,
       migrations: {
         naturalSort: true,
         paths: ['database/migrations'],
@@ -17,5 +37,3 @@ const dbConfig = defineConfig({
     },
   },
 })
-
-export default dbConfig
