@@ -32,7 +32,7 @@ export default function Home({ projects }: HomeProps) {
         <GridLayers variant={variant} />
       </div>
       <div className="flex flex-col gap-48">
-        <div className="-mt-12 sm:mt-0">
+        <div className="-mt-18 sm:mt-0">
           <Hero />
         </div>
         <div>
