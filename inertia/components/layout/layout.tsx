@@ -18,7 +18,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="#projects"
+                href="/#projects"
               >
                 Projets
               </Link>
@@ -26,7 +26,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="#about"
+                href="/#about"
               >
                 À propos
               </Link>
@@ -34,7 +34,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="#skills"
+                href="/#skills"
               >
                 Compétences
               </Link>
@@ -42,7 +42,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             <li>
               <Link
                 className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="#contact"
+                href="/#contact"
               >
                 Contact
               </Link>
@@ -78,22 +78,22 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <nav>
           <ul className="flex flex-col gap-4 text-lg">
             <li>
-              <Link href="#projects" onClick={() => setOpen(false)}>
+              <Link href="/#projects" onClick={() => setOpen(false)}>
                 Projets
               </Link>
             </li>
             <li>
-              <Link href="#about" onClick={() => setOpen(false)}>
+              <Link href="/#about" onClick={() => setOpen(false)}>
                 À propos
               </Link>
             </li>
             <li>
-              <Link href="#skills" onClick={() => setOpen(false)}>
+              <Link href="/#skills" onClick={() => setOpen(false)}>
                 Compétences
               </Link>
             </li>
             <li>
-              <Link href="#contact" onClick={() => setOpen(false)}>
+              <Link href="/#contact" onClick={() => setOpen(false)}>
                 Contact
               </Link>
             </li>
@@ -105,7 +105,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </a>
       </div>
 
-      <div className="w-5/6 mx-auto mt-32">{children}</div>
+      <div className="mx-4 w-full sm:w-5/6 sm:mx-auto mt-32">{children}</div>
 
       <footer className="mt-24"></footer>
     </>

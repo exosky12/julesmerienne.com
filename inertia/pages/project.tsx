@@ -40,7 +40,7 @@ export default function ProjectPage({ project }: ProjectProps) {
 
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, i) => (
-                <Tag variant='sm' key={i} text={tech} appearance="outline" />
+                <Tag variant="sm" key={i} text={tech} appearance="outline" />
               ))}
             </div>
           </div>
@@ -58,7 +58,7 @@ export default function ProjectPage({ project }: ProjectProps) {
 
             {project.images.length > 1 && (
               <div className="grid grid-cols-3 gap-4">
-                {project.images.slice(1, 4).map((img, i) => (
+                {project.images.map((img, i) => (
                   <div
                     key={i}
                     className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black"
