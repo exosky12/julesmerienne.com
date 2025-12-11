@@ -105,7 +105,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </a>
       </div>
 
-      <div className="mx-4 w-full sm:w-5/6 sm:mx-auto mt-32">{children}</div>
+      <div className="mx-4 min-w-11/12 sm:w-5/6 sm:mx-auto mt-32">{children}</div>
 
       <footer className="mt-24"></footer>
     </>

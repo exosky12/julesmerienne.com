@@ -58,7 +58,7 @@ export default function ProjectPage({ project }: ProjectProps) {
 
             {project.images.length > 1 && (
               <div className="grid grid-cols-3 gap-4">
-                {project.images.map((img, i) => (
+                {project.images.slice(1).map((img, i) => (
                   <div
                     key={i}
                     className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black"
