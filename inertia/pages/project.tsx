@@ -3,13 +3,16 @@ import Project from '#models/project'
 import { GridLayers } from '~/components/Grid/grid'
 import { Button } from '~/components/Button/button'
 import { Tag } from '~/components/Tag/tag'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, X } from 'lucide-react'
+import { useState } from 'react'
 
 interface ProjectProps {
   project: Project
 }
 
 export default function ProjectPage({ project }: ProjectProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
   // Helper to determine link label
   const getLinkLabel = (url: string) => {
     if (url.includes('github.com')) return 'Code Source'
@@ -20,6 +23,27 @@ export default function ProjectPage({ project }: ProjectProps) {
   return (
     <>
       <Head title={project.name} />
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full"
+            onClick={() => setSelectedImage(null)}
+          >
+            <X size={24} />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Full screen view"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden">
         <GridLayers variant={2} />
@@ -48,11 +72,14 @@ export default function ProjectPage({ project }: ProjectProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
           <div className="space-y-6">
-            <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative">
+            <div
+              className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-zoom-in"
+              onClick={() => setSelectedImage(project.images[0])}
+            >
               <img
                 src={project.images[0]}
                 alt={project.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
 
@@ -61,12 +88,13 @@ export default function ProjectPage({ project }: ProjectProps) {
                 {project.images.slice(1).map((img, i) => (
                   <div
                     key={i}
-                    className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black"
+                    className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-zoom-in group"
+                    onClick={() => setSelectedImage(img)}
                   >
                     <img
                       src={img}
                       alt={`${project.name} screenshot ${i + 2}`}
-                      className="w-full h-full object-cover hover:opacity-90 transition-opacity"
+                      className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105"
                     />
                   </div>
                 ))}
