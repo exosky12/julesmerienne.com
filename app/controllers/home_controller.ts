@@ -9,7 +9,7 @@ export default class HomeController {
     return inertia.render('home', { projects })
   }
 
-  async sendEmail({ request }: HttpContext) {
+  async sendEmail({ request, response }: HttpContext) {
     const { name, email, message } = await ContactValidator.validate(
       request.only(['name', 'email', 'message'])
     )
@@ -23,6 +23,8 @@ export default class HomeController {
           .subject('Nouveau message de contact')
           .htmlView('emails/contact', { name, email, message })
       })
+
+      return response.redirect().back()
     } catch (error) {
       console.error('Error sending email:', error)
       throw error
