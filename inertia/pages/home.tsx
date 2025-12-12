@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Seo } from '~/components/SEO/Seo'
 import { Hero } from '~/components/Hero/hero'
 import { GridLayers } from '~/components/Grid/grid'
 import { ProjectsList } from '~/components/ProjectsList/projectsList'
@@ -27,7 +27,7 @@ export default function Home({ projects }: HomeProps) {
 
   return (
     <>
-      <Head title="Accueil" />
+      <Seo title="Accueil" />
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden transition-colors duration-700">
         <GridLayers variant={variant} />
       </div>

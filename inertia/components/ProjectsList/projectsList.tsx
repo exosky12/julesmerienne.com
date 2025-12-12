@@ -71,7 +71,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
         {filteredProjects.map((project) => (
           <Link
-            href={`/projects/${project.id}`}
+            href={`/projects/${project.slug}`}
             className="flex w-full sm:max-w-1/4 sm:min-w-[350px] flex-col gap-5.5 group cursor-pointer"
             key={project.id}
           >

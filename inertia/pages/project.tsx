@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Seo } from '~/components/SEO/Seo'
 import Project from '#models/project'
 import { GridLayers } from '~/components/Grid/grid'
 import { Button } from '~/components/Button/button'
@@ -22,7 +22,12 @@ export default function ProjectPage({ project }: ProjectProps) {
 
   return (
     <>
-      <Head title={project.name} />
+      <Seo
+        title={project.name}
+        description={project.description}
+        image={project.images[0]}
+        type="article"
+      />
 
       {/* Image Modal */}
       {selectedImage && (

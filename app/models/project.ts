@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, beforeSave } from '@adonisjs/lucid/orm'
+import string from '@adonisjs/core/helpers/string'
 import { Technology } from '../types/technology.js'
 import { Tag } from '../types/tag.js'
 
@@ -9,6 +10,9 @@ export default class Project extends BaseModel {
 
   @column()
   declare name: string
+
+  @column()
+  declare slug: string
 
   @column()
   declare description: string
@@ -36,4 +40,11 @@ export default class Project extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @beforeSave()
+  static async generateSlug(project: Project) {
+    if (!project.slug) {
+      project.slug = string.slug(project.name)
+    }
+  }
 }
