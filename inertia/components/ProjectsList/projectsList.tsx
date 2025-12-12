@@ -72,7 +72,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
         {filteredProjects.map((project) => (
           <Link
             href={`/projects/${project.id}`}
-            className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5 group cursor-pointer"
+            className="flex w-full sm:max-w-1/4 sm:min-w-[350px] flex-col gap-5.5 group cursor-pointer"
             key={project.id}
           >
             <div className="w-full aspect-square rounded-lg overflow-hidden relative">
