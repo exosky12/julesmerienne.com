@@ -70,16 +70,22 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
       </span>
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
         {filteredProjects.map((project) => (
-          <div className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5" key={project.id}>
-            <Link href={`/projects/${project.id}`}>
+          <Link
+            href={`/projects/${project.id}`}
+            className="flex max-w-1/4 min-w-[350px] flex-col gap-5.5 group cursor-pointer"
+            key={project.id}
+          >
+            <div className="w-full aspect-square rounded-lg overflow-hidden relative">
               <img
-                className="h-full w-full object-cover rounded-lg"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 src={project.images[0]}
                 alt={project.name}
               />
-            </Link>
+            </div>
             <div className="flex flex-col gap-3">
-              <h2 className="font-mono text-3xl">{project.name}</h2>
+              <h2 className="font-mono text-3xl group-hover:text-gray-600 transition-colors duration-300">
+                {project.name}
+              </h2>
               <div className="flex gap-2 flex-wrap">
                 {project.tags.map((tag) => (
                   <Tag key={tag} text={tag} appearance="outline" />
@@ -87,7 +93,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
               </div>
               <p className="line-clamp-3">{project.description}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

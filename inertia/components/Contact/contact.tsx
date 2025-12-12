@@ -14,6 +14,7 @@ export const Contact = () => {
   const submit = (e: FormEvent) => {
     e.preventDefault()
     post('/contact', {
+      preserveScroll: true,
       onSuccess: () => reset(),
     })
   }
