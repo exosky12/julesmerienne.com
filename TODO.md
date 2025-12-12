@@ -3,7 +3,11 @@
 ## Infrastructure & Backend
 
 - [x] **S3 Integration**: Connecter le stockage des images avec un bucket S3 (AWS/R2/DigitalOcean Spaces) pour de meilleures performances. (Fait via Vercel Blob)
-- [ ] **Analytics**: Mettre en place un outil de suivi (PostHog, Google Analytics, ou Plausible) pour suivre les visites.
+- [ ] **Analytics**: Mettre en place un outil de suivi (recommandé: **PostHog**) pour suivre :
+  - Le temps passé par les utilisateurs (sessions)
+  - Les actions (clics, interactions) et parcours
+  - Les vues de pages et statistiques générales
+
 - [ ] **Email Compliance**: Configurer SPF, DKIM, DMARC et gérer les mécanismes anti-spam pour les emails transactionnels (ou formulaire de contact).
 - [ ] **CD**: Mettre en place un pipeline de déploiement continu (CI/CD) pour automatiser les déploiements Heroku.
 
