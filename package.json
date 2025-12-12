@@ -69,6 +69,7 @@
     "@inertiajs/react": "^2.2.19",
     "@radix-ui/react-dialog": "^1.1.15",
     "@tailwindcss/vite": "^4.1.17",
+    "@vercel/blob": "^2.0.0",
     "@vinejs/vine": "^3.0.1",
     "clsx": "^2.1.1",
     "edge.js": "^6.2.1",

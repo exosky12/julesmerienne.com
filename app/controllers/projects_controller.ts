@@ -1,7 +1,8 @@
 import Project from '#models/project'
 import type { HttpContext } from '@adonisjs/core/http'
-import app from '@adonisjs/core/services/app'
 import { cuid } from '@adonisjs/core/helpers'
+import { put } from '@vercel/blob'
+import { readFile } from 'node:fs/promises'
 
 export default class ProjectsController {
   async render({ inertia }: HttpContext) {
@@ -28,12 +29,11 @@ export default class ProjectsController {
     const imagePaths: string[] = []
 
     for (const image of images) {
-      if (image.isValid) {
+      if (image.isValid && image.tmpPath) {
         const fileName = `${cuid()}.${image.extname}`
-        await image.move(app.makePath('public/uploads'), {
-          name: fileName,
-        })
-        imagePaths.push(`/uploads/${fileName}`)
+        const file = await readFile(image.tmpPath)
+        const { url } = await put(fileName, file, { access: 'public' })
+        imagePaths.push(url)
       }
     }
 
@@ -61,12 +61,11 @@ export default class ProjectsController {
     const imagePaths: string[] = Array.isArray(existingImages) ? existingImages : []
 
     for (const image of images) {
-      if (image.isValid) {
+      if (image.isValid && image.tmpPath) {
         const fileName = `${cuid()}.${image.extname}`
-        await image.move(app.makePath('public/uploads'), {
-          name: fileName,
-        })
-        imagePaths.push(`/uploads/${fileName}`)
+        const file = await readFile(image.tmpPath)
+        const { url } = await put(fileName, file, { access: 'public' })
+        imagePaths.push(url)
       }
     }
 
