@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
+      url: https://julesmerienne.herokuapp.com
     steps:
       - uses: actions/checkout@v4
         with:
