@@ -34,6 +34,8 @@ jobs:
           echo "TZ=UTC" >> .env
           echo "LOG_LEVEL=info" >> .env
           echo "SESSION_DRIVER=memory" >> .env
+          echo "HOST=0.0.0.0" >> .env
+          echo "RESEND_API_KEY=re_12345678" >> .env
 
       - name: Run tests
         run: node ace test
