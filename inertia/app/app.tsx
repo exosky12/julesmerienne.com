@@ -9,7 +9,13 @@ import { Layout } from '~/components/layout/layout'
 import posthog from 'posthog-js'
 
 if (typeof window !== 'undefined') {
-  posthog.init(import.meta.env.VITE_POSTHOG_API_KEY, {
+  const apiKey = import.meta.env.VITE_POSTHOG_API_KEY
+  if (!apiKey) {
+    console.warn(
+      'PostHog API Key is missing! Check your VITE_POSTHOG_API_KEY environment variable.'
+    )
+  }
+  posthog.init(apiKey, {
     api_host: import.meta.env.VITE_POSTHOG_HOST || 'https://eu.i.posthog.com',
     person_profiles: 'identified_only',
   })
