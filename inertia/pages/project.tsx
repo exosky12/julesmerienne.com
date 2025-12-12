@@ -73,13 +73,13 @@ export default function ProjectPage({ project }: ProjectProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
           <div className="space-y-6">
             <div
-              className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-zoom-in"
+              className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-magnifier"
               onClick={() => setSelectedImage(project.images[0])}
             >
               <img
                 src={project.images[0]}
                 alt={project.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100 cursor-magnifier"
               />
             </div>
 
@@ -88,13 +88,13 @@ export default function ProjectPage({ project }: ProjectProps) {
                 {project.images.slice(1).map((img, i) => (
                   <div
                     key={i}
-                    className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-zoom-in group"
+                    className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-magnifier group relative"
                     onClick={() => setSelectedImage(img)}
                   >
                     <img
                       src={img}
                       alt={`${project.name} screenshot ${i + 2}`}
-                      className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105"
+                      className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105 cursor-magnifier"
                     />
                   </div>
                 ))}

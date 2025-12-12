@@ -65,3 +65,9 @@
   --color-background: #f8f8f8;
   --color-grey: #969696;
 }
+
+.cursor-magnifier {
+  cursor:
+    url('../../public/magnifier.svg') 16 16,
+    zoom-in;
+}

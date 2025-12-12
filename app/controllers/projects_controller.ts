@@ -32,7 +32,10 @@ export default class ProjectsController {
       if (image.isValid && image.tmpPath) {
         const fileName = `${cuid()}.${image.extname}`
         const file = await readFile(image.tmpPath)
-        const { url } = await put(fileName, file, { access: 'public' })
+        const { url } = await put(fileName, file, {
+          access: 'public',
+          contentType: image.headers['content-type'],
+        })
         imagePaths.push(url)
       }
     }
@@ -64,7 +67,10 @@ export default class ProjectsController {
       if (image.isValid && image.tmpPath) {
         const fileName = `${cuid()}.${image.extname}`
         const file = await readFile(image.tmpPath)
-        const { url } = await put(fileName, file, { access: 'public' })
+        const { url } = await put(fileName, file, {
+          access: 'public',
+          contentType: image.headers['content-type'],
+        })
         imagePaths.push(url)
       }
     }
