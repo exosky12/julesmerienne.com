@@ -18,6 +18,7 @@ const ProjectController = () => import('#controllers/project_controller')
 const SitemapController = () => import('#controllers/sitemap_controller')
 
 router.get('/sitemap.xml', [SitemapController, 'handle'])
+router.get('/mentions-legales', ({ inertia }) => inertia.render('legal'))
 
 router.get('/', [HomeController, 'render'])
 router.post('/contact', [HomeController, 'sendEmail']).use(contact)

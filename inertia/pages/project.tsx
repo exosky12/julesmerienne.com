@@ -3,17 +3,19 @@ import Project from '#models/project'
 import { GridLayers } from '~/components/Grid/grid'
 import { Button } from '~/components/Button/button'
 import { Tag } from '~/components/Tag/tag'
-import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowUpRight, X, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
+import { Link } from '@inertiajs/react'
 
 import { useLanguage } from '~/context/LanguageContext'
 
 interface ProjectProps {
   project: Project
+  nextProject?: Project
 }
 
-export default function ProjectPage({ project }: ProjectProps) {
+export default function ProjectPage({ project, nextProject }: ProjectProps) {
   const { t, language } = useLanguage()
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
 
@@ -304,6 +306,29 @@ export default function ProjectPage({ project }: ProjectProps) {
             </div>
           </div>
         </div>
+
+        {/* Next Project Navigation */}
+        {nextProject && (
+          <div className="border-t border-black/10 pt-16 mt-8">
+            <Link
+              href={`/projects/${nextProject.slug}`}
+              className="group flex flex-col items-end gap-2 text-black hover:text-black/70 transition-colors"
+            >
+              <span className="text-sm font-medium text-black/50 uppercase tracking-widest">
+                {language === 'en' ? 'Next Project' : 'Projet Suivant'}
+              </span>
+              <div className="flex items-center gap-4">
+                <h2 className="text-3xl md:text-5xl font-mono font-bold">
+                  {language === 'en' && nextProject.nameEn ? nextProject.nameEn : nextProject.name}
+                </h2>
+                <ArrowRight
+                  size={32}
+                  className="transition-transform duration-300 group-hover:translate-x-2"
+                />
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   )

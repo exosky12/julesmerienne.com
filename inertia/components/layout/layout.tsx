@@ -168,7 +168,32 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         {children}
       </main>
 
-      <footer className="mt-24"></footer>
+      <footer className="mt-24 py-12 border-t border-black/10">
+        <div className="w-5/6 mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-black/60">
+          <div>© {new Date().getFullYear()} Jules Merienne. All rights reserved.</div>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://github.com/julesmerienne"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://linkedin.com/in/jules-merienne"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black transition-colors"
+            >
+              LinkedIn
+            </a>
+            <Link href="/mentions-legales" className="hover:text-black transition-colors">
+              {language === 'en' ? 'Legal Notice' : 'Mentions Légales'}
+            </Link>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
