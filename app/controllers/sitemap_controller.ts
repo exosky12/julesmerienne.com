@@ -6,28 +6,28 @@ export default class SitemapController {
     const projects = await Project.query().where('published', true)
     const baseUrl = 'https://julesmerienne.com'
 
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>'
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
     // Static pages
-    const staticPages = ['']
+    const staticPages = ['/']
 
     staticPages.forEach((page) => {
-      xml += '<url>'
-      xml += `<loc>${baseUrl}${page}</loc>`
-      xml += '<changefreq>weekly</changefreq>'
-      xml += '<priority>1.0</priority>'
-      xml += '</url>'
+      xml += '  <url>\n'
+      xml += `    <loc>${baseUrl}${page}</loc>\n`
+      xml += '    <changefreq>weekly</changefreq>\n'
+      xml += '    <priority>1.0</priority>\n'
+      xml += '  </url>\n'
     })
 
     // Dynamic pages (Projects)
     projects.forEach((project) => {
-      xml += '<url>'
-      xml += `<loc>${baseUrl}/projects/${project.slug}</loc>`
-      xml += `<lastmod>${project.updatedAt.toISODate()}</lastmod>`
-      xml += '<changefreq>monthly</changefreq>'
-      xml += '<priority>0.8</priority>'
-      xml += '</url>'
+      xml += '  <url>\n'
+      xml += `    <loc>${baseUrl}/projects/${project.slug}</loc>\n`
+      xml += `    <lastmod>${project.updatedAt.toISODate()}</lastmod>\n`
+      xml += '    <changefreq>monthly</changefreq>\n'
+      xml += '    <priority>0.8</priority>\n'
+      xml += '  </url>\n'
     })
 
     xml += '</urlset>'

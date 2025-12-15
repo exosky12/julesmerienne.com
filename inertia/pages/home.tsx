@@ -1,12 +1,19 @@
 import { Seo } from '~/components/SEO/Seo'
 import { Hero } from '~/components/Hero/hero'
-import { GridLayers } from '~/components/Grid/grid'
 import { ProjectsList } from '~/components/ProjectsList/projectsList'
 import type Project from '#models/project'
 import { About } from '~/components/About/about'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { Skills } from '~/components/Skills/skills'
-import { Contact } from '~/components/Contact/contact'
+import { ClientOnly } from '~/components/ClientOnly/clientOnly'
+
+// Lazy load non-critical components for SEO to improve performance
+const GridLayers = lazy(() =>
+  import('~/components/Grid/grid').then((module) => ({ default: module.GridLayers }))
+)
+const Contact = lazy(() =>
+  import('~/components/Contact/contact').then((module) => ({ default: module.Contact }))
+)
 
 interface HomeProps {
   projects: Project[]
@@ -39,7 +46,11 @@ export default function Home({ projects }: HomeProps) {
     <>
       <Seo title="Accueil" />
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden transition-colors duration-700">
-        <GridLayers showFog={true} variant={variant} />
+        <ClientOnly>
+          <Suspense fallback={null}>
+            <GridLayers showFog={true} variant={variant} />
+          </Suspense>
+        </ClientOnly>
       </div>
       <div className="flex flex-col gap-48">
         <div className="-mt-18 sm:mt-0">
@@ -55,7 +66,11 @@ export default function Home({ projects }: HomeProps) {
           <Skills />
         </div>
         <div>
-          <Contact />
+          <ClientOnly fallback={<div className="h-[400px]" />}>
+            <Suspense fallback={<div className="h-[400px]" />}>
+              <Contact />
+            </Suspense>
+          </ClientOnly>
         </div>
       </div>
     </>
