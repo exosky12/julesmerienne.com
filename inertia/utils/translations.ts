@@ -83,6 +83,14 @@ export const translations = {
       password: 'Mot de passe',
       submit: 'Se connecter',
     },
+    tags: {
+      Tous: 'Tous',
+      Web: 'Web',
+      Mobile: 'Mobile',
+      Logiciel: 'Logiciel',
+      Design: 'Design',
+      Automatisation: 'Automatisation',
+    },
   },
   en: {
     layout: {
@@ -167,6 +175,14 @@ export const translations = {
       email: 'Email',
       password: 'Password',
       submit: 'Login',
+    },
+    tags: {
+      Tous: 'All',
+      Web: 'Web',
+      Mobile: 'Mobile',
+      Logiciel: 'Software',
+      Design: 'Design',
+      Automatisation: 'Automation',
     },
   },
 }

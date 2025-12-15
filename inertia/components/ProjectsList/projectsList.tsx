@@ -59,7 +59,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
             return (
               <Tag
                 key={tagOption.value}
-                text={tagOption.label === 'Tous' ? t.projects.all : tagOption.label}
+                text={t.tags[tagOption.value as keyof typeof t.tags]}
                 appearance={isSelected ? 'filled' : 'outline'}
                 onClick={() => handleTagClick(tagOption.value as TagEnum)}
                 className={`transition-all duration-200 ${!isSelected && 'hover:bg-black/5'}`}
@@ -96,7 +96,11 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
                 {project.tags
                   .filter((tag) => tag !== (TagEnum.Tous as unknown as string)) // Handle safe filtering
                   .map((tag) => (
-                    <Tag key={tag as string} text={tag as string} appearance="outline" />
+                    <Tag
+                      key={tag as string}
+                      text={t.tags[tag as keyof typeof t.tags] || (tag as string)}
+                      appearance="outline"
+                    />
                   ))}
               </div>
               <p>

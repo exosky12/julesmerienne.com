@@ -78,10 +78,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={toggleLanguage}
-              className="text-sm font-medium hover:opacity-70 transition-opacity flex items-center gap-2"
+              className="cursor-pointer text-sm font-medium hover:bg-black/5 transition-all text-black border border-black/20 rounded-full px-3 py-1.5 flex items-center gap-2"
               aria-label={language === 'fr' ? 'Switch to English' : 'Passer en français'}
             >
-              {language === 'fr' ? 'FR 🇫🇷' : 'EN 🇬🇧'}
+              <span className="font-bold">{language === 'fr' ? 'FR' : 'EN'}</span>
+              <span className="text-lg leading-none">{language === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
             </button>
             <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
               <Button icon={<ArrowUpRight strokeWidth={1} />}>{t.layout.bookCall}</Button>
@@ -149,9 +150,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   toggleLanguage()
                   setOpen(false)
                 }}
-                className="text-left w-full"
+                className="text-left w-full cursor-pointer flex items-center gap-2 font-medium py-2"
               >
-                {language === 'fr' ? 'FR 🇫🇷' : 'EN 🇬🇧'}
+                Change language:{' '}
+                <span className="font-bold">{language === 'fr' ? 'FR 🇫🇷' : 'EN 🇬🇧'}</span>
               </button>
             </li>
           </ul>

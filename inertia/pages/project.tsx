@@ -154,7 +154,7 @@ export default function ProjectPage({ project }: ProjectProps) {
                   tag !== 'Tous' && (
                     <Tag
                       key={i}
-                      text={tag}
+                      text={t.tags[tag as keyof typeof t.tags] || tag}
                       appearance="outline"
                       className="rounded-full border-black/20 text-black px-4"
                     />
