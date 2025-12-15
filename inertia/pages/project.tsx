@@ -81,8 +81,9 @@ export default function ProjectPage({ project }: ProjectProps) {
           <button
             className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
             onClick={() => setSelectedImageIndex(null)}
+            aria-label="Fermer la galerie"
           >
-            <X size={24} />
+            <X size={24} aria-hidden="true" />
           </button>
 
           {project.images.length > 1 && (
@@ -90,15 +91,17 @@ export default function ProjectPage({ project }: ProjectProps) {
               <button
                 className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
                 onClick={handlePrev}
+                aria-label="Image précédente"
               >
-                <ChevronLeft size={32} />
+                <ChevronLeft size={32} aria-hidden="true" />
               </button>
 
               <button
                 className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
                 onClick={handleNext}
+                aria-label="Image suivante"
               >
-                <ChevronRight size={32} />
+                <ChevronRight size={32} aria-hidden="true" />
               </button>
             </>
           )}

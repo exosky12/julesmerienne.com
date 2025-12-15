@@ -17,6 +17,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="fixed top-4 left-4 z-100 -translate-y-[150%] rounded-md bg-black px-4 py-2 text-white transition-transform focus:translate-y-0"
+      >
+        Aller au contenu principal
+      </a>
+
       <div
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
           isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
@@ -24,10 +31,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       >
         <header className="flex items-center justify-between w-5/6 mx-auto">
           <h2 className="font-mono font-bold text-lg">
-            <Link href="/">Jules Merienne</Link>
+            <Link href="/" aria-label="Jules Merienne - Retour à l'accueil">
+              Jules Merienne
+            </Link>
           </h2>
 
-          <nav className="hidden md:block">
+          <nav className="hidden md:block" aria-label="Navigation principale">
             <ul className="flex gap-5.5">
               <li>
                 <Link
@@ -70,8 +79,13 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
             </a>
           </div>
 
-          <button className="cursor-pointer md:hidden" onClick={() => setOpen(true)}>
-            <Menu />
+          <button
+            className="cursor-pointer md:hidden"
+            onClick={() => setOpen(true)}
+            aria-label="Ouvrir le menu"
+            aria-expanded={open}
+          >
+            <Menu aria-hidden="true" />
           </button>
         </header>
       </div>
@@ -80,17 +94,25 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <div
           className="fixed inset-0 z-50 bg-black/20 backdrop-blur-xs transition-opacity duration-300"
           onClick={() => setOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       <div
         className={`fixed top-0 right-0 z-50 h-full w-3/4 max-w-xs bg-white shadow-xl transition-transform duration-300 ease-out p-6 flex flex-col gap-6 ${open ? 'translate-x-0' : 'translate-x-full'}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu mobile"
       >
-        <button className="self-end cursor-pointer mr-4" onClick={() => setOpen(false)}>
-          <X />
+        <button
+          className="self-end cursor-pointer mr-4"
+          onClick={() => setOpen(false)}
+          aria-label="Fermer le menu"
+        >
+          <X aria-hidden="true" />
         </button>
 
-        <nav>
+        <nav aria-label="Navigation mobile">
           <ul className="flex flex-col gap-4 text-lg">
             <li>
               <Link href="/#projects" onClick={() => setOpen(false)}>
@@ -120,7 +142,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </a>
       </div>
 
-      <div className="mx-4 min-w-11/12 sm:w-5/6 sm:mx-auto mt-32">{children}</div>
+      <main id="main-content" className="mx-4 min-w-11/12 sm:w-5/6 sm:mx-auto mt-32">
+        {children}
+      </main>
 
       <footer className="mt-24"></footer>
     </>
