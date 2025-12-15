@@ -77,34 +77,54 @@ export default function ProjectPage({ project }: ProjectProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
           <div className="space-y-6">
-            <div
-              className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-magnifier"
-              onClick={() => setSelectedImage(project.images[0])}
-            >
-              <img
-                src={project.images[0]}
-                alt={project.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100 cursor-magnifier"
-              />
+            {/* Mobile/Tablet Slider */}
+            <div className="lg:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 -mx-4 px-4 pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+              {project.images.map((img, i) => (
+                <div
+                  key={i}
+                  className="snap-center shrink-0 w-[85vw] aspect-square rounded-3xl overflow-hidden bg-black shadow-sm relative"
+                  onClick={() => setSelectedImage(img)}
+                >
+                  <img
+                    src={img}
+                    alt={`${project.name} view ${i + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
 
-            {project.images.length > 1 && (
-              <div className="grid grid-cols-3 gap-4">
-                {project.images.slice(1).map((img, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-magnifier group relative"
-                    onClick={() => setSelectedImage(img)}
-                  >
-                    <img
-                      src={img}
-                      alt={`${project.name} screenshot ${i + 2}`}
-                      className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105 cursor-magnifier"
-                    />
-                  </div>
-                ))}
+            {/* Desktop Grid */}
+            <div className="hidden lg:block space-y-6">
+              <div
+                className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-magnifier"
+                onClick={() => setSelectedImage(project.images[0])}
+              >
+                <img
+                  src={project.images[0]}
+                  alt={project.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100 cursor-magnifier"
+                />
               </div>
-            )}
+
+              {project.images.length > 1 && (
+                <div className="grid grid-cols-3 gap-4">
+                  {project.images.slice(1).map((img, i) => (
+                    <div
+                      key={i}
+                      className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-magnifier group relative"
+                      onClick={() => setSelectedImage(img)}
+                    >
+                      <img
+                        src={img}
+                        alt={`${project.name} screenshot ${i + 2}`}
+                        className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105 cursor-magnifier"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="space-y-12">
