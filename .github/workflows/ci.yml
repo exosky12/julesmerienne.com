@@ -36,6 +36,7 @@ jobs:
           echo "SESSION_DRIVER=memory" >> .env
           echo "HOST=0.0.0.0" >> .env
           echo "RESEND_API_KEY=re_12345678" >> .env
+          echo "LIMITER_STORE=memory" >> .env
 
       - name: Run tests
         run: node ace test
