@@ -5,6 +5,7 @@ import { Button } from '~/components/Button/button'
 import { Tag } from '~/components/Tag/tag'
 import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 interface ProjectProps {
   project: Project
@@ -12,6 +13,11 @@ interface ProjectProps {
 
 export default function ProjectPage({ project }: ProjectProps) {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+
+  // Extract year safely
+  const projectYear = project.createdAt
+    ? new Date(project.createdAt as unknown as string).getFullYear()
+    : new Date().getFullYear()
 
   // Helper to determine link label
   const getLinkLabel = (url: string) => {
@@ -121,21 +127,43 @@ export default function ProjectPage({ project }: ProjectProps) {
       </div>
 
       <div className="flex flex-col gap-12 pb-24 animate-in fade-in duration-700 slide-in-from-bottom-4">
+        {/* Header Section */}
         <div className="space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight text-black">
-            {project.name}
-          </h1>
+          <div className="flex flex-wrap items-center gap-4">
+            <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight text-black">
+              {project.name}
+            </h1>
+            <div className="bg-black text-white px-3 py-1.5 rounded-lg text-sm font-mono font-medium">
+              {projectYear}
+            </div>
+          </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
+            {/* Categories */}
             <div className="flex flex-wrap gap-2">
               {project.tags.map(
-                (tag, i) => tag !== 'Tous' && <Tag key={i} text={tag} appearance="outline" />
+                (tag, i) =>
+                  tag !== 'Tous' && (
+                    <Tag
+                      key={i}
+                      text={tag}
+                      appearance="outline"
+                      className="rounded-full border-black/20 text-black px-4"
+                    />
+                  )
               )}
             </div>
 
+            {/* Technologies */}
             <div className="flex flex-wrap gap-2">
               {project.technologies.map((tech, i) => (
-                <Tag variant="sm" key={i} text={tech} appearance="outline" />
+                <Tag
+                  variant="sm"
+                  key={i}
+                  text={tech}
+                  appearance="outline"
+                  className="rounded-full border-black/20 text-black/70 px-3"
+                />
               ))}
             </div>
           </div>
@@ -193,16 +221,58 @@ export default function ProjectPage({ project }: ProjectProps) {
             </div>
           </div>
 
-          <div className="space-y-12">
-            <div className="prose prose-lg max-w-none text-black/80 font-sans leading-relaxed whitespace-pre-wrap">
-              {project.longDescription || project.description}
+          {/* Right Column: Description, Summary, Links */}
+          <div className="space-y-8">
+            {/* Long Description (Main Content) */}
+            <div className="prose prose-lg max-w-none text-black/80 font-sans leading-relaxed">
+              <ReactMarkdown
+                components={{
+                  h1: ({ node, ...props }) => (
+                    <h1
+                      className="text-2xl font-bold font-mono text-black mt-8 mb-4 first:mt-0"
+                      {...props}
+                    />
+                  ),
+                  h2: ({ node, ...props }) => (
+                    <h2
+                      className="text-xl font-bold font-mono text-black mt-8 mb-4 first:mt-0"
+                      {...props}
+                    />
+                  ),
+                  h3: ({ node, ...props }) => (
+                    <h3 className="text-lg font-bold font-mono text-black mt-6 mb-3" {...props} />
+                  ),
+                  p: ({ node, ...props }) => (
+                    <p className="mb-4 leading-relaxed text-black/80" {...props} />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <ul className="list-disc pl-5 mb-4 space-y-1 text-black/80" {...props} />
+                  ),
+                  ol: ({ node, ...props }) => (
+                    <ol className="list-decimal pl-5 mb-4 space-y-1 text-black/80" {...props} />
+                  ),
+                  strong: ({ node, ...props }) => (
+                    <strong className="font-bold text-black" {...props} />
+                  ),
+                }}
+              >
+                {project.longDescription || project.description}
+              </ReactMarkdown>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            {/* Summary Box (Short Description) - Only show if we have a long description distinct from the short one */}
+            {project.longDescription && project.description && (
+              <div className="bg-[#F3F3F3] p-6 rounded-2xl border border-black/5">
+                <p className="text-black/80 leading-relaxed font-medium">{project.description}</p>
+              </div>
+            )}
+
+            {/* Links */}
+            <div className="flex flex-wrap gap-4 pt-4">
               {project.links.map((link, i) => (
                 <a key={i} href={link} target="_blank" rel="noopener noreferrer">
                   <Button
-                    className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 text-base font-medium flex items-center gap-2"
+                    className="bg-black text-white hover:bg-black/90 rounded-full px-6 py-3 text-base font-medium flex items-center gap-2 shadow-none hover:shadow-lg transition-all"
                     icon={<ArrowUpRight size={18} />}
                   >
                     {getLinkLabel(link)}
