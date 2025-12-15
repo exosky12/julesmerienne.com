@@ -3,36 +3,48 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 export default class SitemapController {
   async handle({ response }: HttpContext) {
-    const projects = await Project.query().where('published', true)
+    const projects = await Project.query().where('published', true).select(['slug', 'updated_at'])
+
     const baseUrl = 'https://julesmerienne.dev'
 
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    const urls: string[] = []
 
-    // Static pages
-    const staticPages = ['/']
+    urls.push(`
+      <url>
+        <loc>${baseUrl}/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+      </url>
+    `)
 
-    staticPages.forEach((page) => {
-      xml += '  <url>\n'
-      xml += `    <loc>${baseUrl}${page}</loc>\n`
-      xml += '    <changefreq>weekly</changefreq>\n'
-      xml += '    <priority>1.0</priority>\n'
-      xml += '  </url>\n'
-    })
+    urls.push(`
+      <url>
+        <loc>${baseUrl}/projects</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+      </url>
+    `)
 
-    // Dynamic pages (Projects)
-    projects.forEach((project) => {
-      xml += '  <url>\n'
-      xml += `    <loc>${baseUrl}/projects/${project.slug}</loc>\n`
-      xml += `    <lastmod>${project.updatedAt.toISODate()}</lastmod>\n`
-      xml += '    <changefreq>monthly</changefreq>\n'
-      xml += '    <priority>0.8</priority>\n'
-      xml += '  </url>\n'
-    })
+    for (const project of projects) {
+      urls.push(`
+        <url>
+          <loc>${baseUrl}/projects/${project.slug.toLowerCase()}</loc>
+          <lastmod>${project.updatedAt.toISODate()}</lastmod>
+          <changefreq>monthly</changefreq>
+          <priority>0.8</priority>
+        </url>
+      `)
+    }
 
-    xml += '</urlset>'
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>`
 
-    response.header('Content-Type', 'application/xml')
+    response
+      .header('Content-Type', 'application/xml')
+      .header('Cache-Control', 'public, max-age=3600')
+
     return response.send(xml)
   }
 }
