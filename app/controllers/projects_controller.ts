@@ -3,6 +3,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { cuid } from '@adonisjs/core/helpers'
 import { put } from '@vercel/blob'
 import { readFile } from 'node:fs/promises'
+import sharp from 'sharp'
 
 export default class ProjectsController {
   async render({ inertia }: HttpContext) {
@@ -33,11 +34,16 @@ export default class ProjectsController {
 
     for (const image of images) {
       if (image.isValid && image.tmpPath) {
-        const fileName = `${cuid()}.${image.extname}`
+        const fileName = `${cuid()}.webp`
         const file = await readFile(image.tmpPath)
-        const { url } = await put(fileName, file, {
+        const optimizedBuffer = await sharp(file)
+          .resize({ width: 1600, withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toBuffer()
+
+        const { url } = await put(fileName, optimizedBuffer, {
           access: 'public',
-          contentType: image.headers['content-type'],
+          contentType: 'image/webp',
         })
         imagePaths.push(url)
       }
@@ -71,11 +77,16 @@ export default class ProjectsController {
 
     for (const image of images) {
       if (image.isValid && image.tmpPath) {
-        const fileName = `${cuid()}.${image.extname}`
+        const fileName = `${cuid()}.webp`
         const file = await readFile(image.tmpPath)
-        const { url } = await put(fileName, file, {
+        const optimizedBuffer = await sharp(file)
+          .resize({ width: 1600, withoutEnlargement: true })
+          .webp({ quality: 80 })
+          .toBuffer()
+
+        const { url } = await put(fileName, optimizedBuffer, {
           access: 'public',
-          contentType: image.headers['content-type'],
+          contentType: 'image/webp',
         })
         imagePaths.push(url)
       }
