@@ -15,7 +15,7 @@ interface SeoProps {
 export const Seo = ({
   title,
   description = 'Portfolio de Jules Merienne - Développeur Full Stack & Créatif. Découvrez mes projets, compétences et contactez-moi pour vos besoins digitaux.',
-  image = 'https://julesmerienne.com/myself.png', // Fallback to provided self portrait
+  image = 'https://julesmerienne.com/myself.webp', // Fallback to provided self portrait
   url = 'https://julesmerienne.com',
   type = 'website',
   publishedTime,
