@@ -8,7 +8,7 @@
   - Les actions (clics, interactions) et parcours
   - Les vues de pages et statistiques générales
 
-- [ ] **Email Compliance**: Configurer SPF, DKIM, DMARC et gérer les mécanismes anti-spam pour les emails transactionnels (ou formulaire de contact).
+- [x] **Email Compliance**: Configurer SPF, DKIM, DMARC et gérer les mécanismes anti-spam pour les emails transactionnels (ou formulaire de contact).
 - [x] **CD**: Mettre en place un pipeline de déploiement continu (CI/CD) pour automatiser les déploiements Heroku.
 
 ## Contenu & Fonctionnalités
@@ -19,4 +19,6 @@
 
 ## À faire plus tard
 
-- [ ] Optimisation SEO des nouvelles pages.
+- [x] Optimisation SEO des nouvelles pages.
+- [x] les points "." dans l'adresse mail de contac semblent être enlevés
+- [x] mettre slider sur les photos d'un projet pour mobile
