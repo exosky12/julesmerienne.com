@@ -3,15 +3,15 @@ import Project from '#models/project'
 import { GridLayers } from '~/components/Grid/grid'
 import { Button } from '~/components/Button/button'
 import { Tag } from '~/components/Tag/tag'
-import { ArrowUpRight, X } from 'lucide-react'
-import { useState } from 'react'
+import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useCallback, useEffect } from 'react'
 
 interface ProjectProps {
   project: Project
 }
 
 export default function ProjectPage({ project }: ProjectProps) {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
 
   // Helper to determine link label
   const getLinkLabel = (url: string) => {
@@ -19,6 +19,43 @@ export default function ProjectPage({ project }: ProjectProps) {
     if (url.includes('figma.com')) return 'Design Figma'
     return 'Site internet'
   }
+
+  const handleNext = useCallback(
+    (e?: React.MouseEvent) => {
+      e?.stopPropagation()
+      if (selectedImageIndex === null) return
+      setSelectedImageIndex((prev) => (prev === null ? null : (prev + 1) % project.images.length))
+    },
+    [selectedImageIndex, project.images.length]
+  )
+
+  const handlePrev = useCallback(
+    (e?: React.MouseEvent) => {
+      e?.stopPropagation()
+      if (selectedImageIndex === null) return
+      setSelectedImageIndex((prev) =>
+        prev === null ? null : (prev - 1 + project.images.length) % project.images.length
+      )
+    },
+    [selectedImageIndex, project.images.length]
+  )
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return
+
+      if (e.key === 'ArrowRight') handleNext()
+      if (e.key === 'ArrowLeft') handlePrev()
+      if (e.key === 'Escape') setSelectedImageIndex(null)
+    }
+
+    if (selectedImageIndex !== null) {
+      window.addEventListener('keydown', handleKeyDown)
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedImageIndex, handleNext, handlePrev])
 
   return (
     <>
@@ -30,23 +67,52 @@ export default function ProjectPage({ project }: ProjectProps) {
       />
 
       {/* Image Modal */}
-      {selectedImage && (
+      {selectedImageIndex !== null && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 animate-in fade-in duration-200"
-          onClick={() => setSelectedImage(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          onClick={() => setSelectedImageIndex(null)}
         >
           <button
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full"
-            onClick={() => setSelectedImage(null)}
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+            onClick={() => setSelectedImageIndex(null)}
           >
             <X size={24} />
           </button>
-          <img
-            src={selectedImage}
-            alt="Full screen view"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-200"
-            onClick={(e) => e.stopPropagation()}
-          />
+
+          {project.images.length > 1 && (
+            <>
+              <button
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+                onClick={handlePrev}
+              >
+                <ChevronLeft size={32} />
+              </button>
+
+              <button
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+                onClick={handleNext}
+              >
+                <ChevronRight size={32} />
+              </button>
+            </>
+          )}
+
+          <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+            <img
+              key={selectedImageIndex} // Force re-render for animation
+              src={project.images[selectedImageIndex]}
+              alt={`View ${selectedImageIndex + 1}`}
+              className="max-w-full max-h-[85vh] md:max-h-[90vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-200 pointer-events-auto select-none"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Image counter */}
+            {project.images.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white/90 px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
+                {selectedImageIndex + 1} / {project.images.length}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -83,7 +149,7 @@ export default function ProjectPage({ project }: ProjectProps) {
                 <div
                   key={i}
                   className="snap-center shrink-0 w-[85vw] aspect-square rounded-3xl overflow-hidden bg-black shadow-sm relative"
-                  onClick={() => setSelectedImage(img)}
+                  onClick={() => setSelectedImageIndex(i)}
                 >
                   <img
                     src={img}
@@ -98,7 +164,7 @@ export default function ProjectPage({ project }: ProjectProps) {
             <div className="hidden lg:block space-y-6">
               <div
                 className="rounded-3xl overflow-hidden shadow-2xl shadow-black/5 bg-black aspect-square group relative cursor-magnifier"
-                onClick={() => setSelectedImage(project.images[0])}
+                onClick={() => setSelectedImageIndex(0)}
               >
                 <img
                   src={project.images[0]}
@@ -113,7 +179,7 @@ export default function ProjectPage({ project }: ProjectProps) {
                     <div
                       key={i}
                       className="rounded-2xl overflow-hidden shadow-sm aspect-square bg-black cursor-magnifier group relative"
-                      onClick={() => setSelectedImage(img)}
+                      onClick={() => setSelectedImageIndex(i + 1)}
                     >
                       <img
                         src={img}
