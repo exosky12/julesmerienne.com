@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import { contact } from '#start/limiter'
 
 const HomeController = () => import('#controllers/home_controller')
 const LoginController = () => import('#controllers/login_controller')
@@ -19,7 +20,7 @@ const SitemapController = () => import('#controllers/sitemap_controller')
 router.get('/sitemap.xml', [SitemapController, 'handle'])
 
 router.get('/', [HomeController, 'render'])
-router.post('/contact', [HomeController, 'sendEmail'])
+router.post('/contact', [HomeController, 'sendEmail']).use(contact)
 
 router.get('/projects/:slug', [ProjectController, 'render'])
 
