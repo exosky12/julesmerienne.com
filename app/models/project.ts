@@ -53,7 +53,9 @@ export default class Project extends BaseModel {
   @beforeSave()
   static async generateSlug(project: Project) {
     if (!project.slug) {
-      project.slug = string.slug(project.name)
+      project.slug = string.slug(project.name, { lower: true })
+    } else {
+      project.slug = project.slug.toLowerCase()
     }
   }
 }
