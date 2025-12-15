@@ -80,11 +80,11 @@ export default function ProjectPage({ project }: ProjectProps) {
       {/* Image Modal */}
       {selectedImageIndex !== null && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-black/95 backdrop-blur-sm p-4 animate-in fade-in duration-200"
           onClick={() => setSelectedImageIndex(null)}
         >
           <button
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full z-110"
             onClick={() => setSelectedImageIndex(null)}
             aria-label={t.projectDetail.closeGallery}
           >
@@ -94,7 +94,7 @@ export default function ProjectPage({ project }: ProjectProps) {
           {project.images.length > 1 && (
             <>
               <button
-                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-110"
                 onClick={handlePrev}
                 aria-label={t.projectDetail.prevImage}
               >
@@ -102,7 +102,7 @@ export default function ProjectPage({ project }: ProjectProps) {
               </button>
 
               <button
-                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
+                className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-110"
                 onClick={handleNext}
                 aria-label={t.projectDetail.nextImage}
               >
