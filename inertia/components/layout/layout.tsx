@@ -1,65 +1,80 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from '@inertiajs/react'
 import { Button } from '../Button/button'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
-      <header className="z-50 flex items-center justify-between w-5/6 mt-6 mx-auto">
-        <h2 className="font-mono font-bold text-lg">
-          <Link href="/">Jules Merienne</Link>
-        </h2>
+      <div
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'
+        }`}
+      >
+        <header className="flex items-center justify-between w-5/6 mx-auto">
+          <h2 className="font-mono font-bold text-lg">
+            <Link href="/">Jules Merienne</Link>
+          </h2>
 
-        <nav className="hidden md:block">
-          <ul className="flex gap-5.5">
-            <li>
-              <Link
-                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="/#projects"
-              >
-                Projets
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="/#about"
-              >
-                À propos
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="/#skills"
-              >
-                Compétences
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
-                href="/#contact"
-              >
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </nav>
+          <nav className="hidden md:block">
+            <ul className="flex gap-5.5">
+              <li>
+                <Link
+                  className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
+                  href="/#projects"
+                >
+                  Projets
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
+                  href="/#about"
+                >
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
+                  href="/#skills"
+                >
+                  Compétences
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
+                  href="/#contact"
+                >
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </nav>
 
-        <div className="hidden md:block">
-          <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
-            <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
-          </a>
-        </div>
+          <div className="hidden md:block">
+            <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
+              <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+            </a>
+          </div>
 
-        <button className="cursor-pointer md:hidden" onClick={() => setOpen(true)}>
-          <Menu />
-        </button>
-      </header>
+          <button className="cursor-pointer md:hidden" onClick={() => setOpen(true)}>
+            <Menu />
+          </button>
+        </header>
+      </div>
 
       {open && (
         <div
