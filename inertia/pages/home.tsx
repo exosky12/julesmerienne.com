@@ -29,7 +29,7 @@ export default function Home({ projects }: HomeProps) {
     <>
       <Seo title="Accueil" />
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden transition-colors duration-700">
-        <GridLayers variant={variant} />
+        <GridLayers showFog={true} variant={variant} />
       </div>
       <div className="flex flex-col gap-48">
         <div className="-mt-18 sm:mt-0">

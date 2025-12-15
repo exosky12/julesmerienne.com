@@ -1,8 +1,9 @@
 interface GridLayersProps {
   variant?: number
+  showFog?: boolean
 }
 
-export const GridLayers = ({ variant = 0 }: GridLayersProps) => {
+export const GridLayers = ({ variant = 0, showFog = false }: GridLayersProps) => {
   // Grid cell size matches the design (~80px)
   const gridSize = '80px'
 
@@ -187,6 +188,16 @@ export const GridLayers = ({ variant = 0 }: GridLayersProps) => {
           />
         ))}
       </div>
+
+      {showFog && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.55) 10%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0) 70%)',
+          }}
+        />
+      )}
     </div>
   )
 }

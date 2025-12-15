@@ -117,7 +117,7 @@ export default function ProjectPage({ project }: ProjectProps) {
       )}
 
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden">
-        <GridLayers variant={2} />
+        <GridLayers showFog={true} variant={2} />
       </div>
 
       <div className="flex flex-col gap-12 pb-24 animate-in fade-in duration-700 slide-in-from-bottom-4">
