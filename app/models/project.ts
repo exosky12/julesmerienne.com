@@ -20,6 +20,15 @@ export default class Project extends BaseModel {
   @column()
   declare longDescription: string | null
 
+  @column()
+  declare nameEn: string | null
+
+  @column()
+  declare descriptionEn: string | null
+
+  @column()
+  declare longDescriptionEn: string | null
+
   @column({ prepare: (value: any[]) => JSON.stringify(value) })
   declare images: string[]
 

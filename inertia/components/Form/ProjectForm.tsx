@@ -12,6 +12,9 @@ interface ProjectFormData {
   name: string
   description: string
   longDescription: string
+  nameEn: string
+  descriptionEn: string
+  longDescriptionEn: string
   images: File[]
   existing_images: string[]
   links: string[]
@@ -31,6 +34,9 @@ export const ProjectForm = ({ project, onSuccess }: ProjectFormProps) => {
       name: project?.name || '',
       description: project?.description || '',
       longDescription: project?.longDescription || '',
+      nameEn: project?.nameEn || '',
+      descriptionEn: project?.descriptionEn || '',
+      longDescriptionEn: project?.longDescriptionEn || '',
       images: [],
       existing_images: project?.images || [],
       links: project?.links || [],
@@ -169,6 +175,53 @@ export const ProjectForm = ({ project, onSuccess }: ProjectFormProps) => {
             <span className="text-xs text-red-500 ml-1 font-medium">{errors.longDescription}</span>
           )}
         </div>
+
+        <div className="border-t border-black/10 my-4 pt-6"></div>
+        <h3 className="text-xl font-mono font-bold">Version Anglaise (Optionnel)</h3>
+
+        <Input
+          type="text"
+          label="Project Name (EN)"
+          value={data.nameEn}
+          onChange={(e) => setData('nameEn', e.target.value)}
+          error={errors.nameEn}
+          placeholder="Ex: My Awesome Project"
+        />
+
+        <div className="flex flex-col gap-1.5 w-full">
+          <label className="text-sm font-medium text-black/70 ml-1">Short Description (EN)</label>
+          <textarea
+            className={`
+               w-full px-4 py-3 rounded-xl bg-white border border-black/5 
+               focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20
+               placeholder:text-black/30 text-black transition-all duration-200
+               shadow-[0px_2px_4px_rgba(0,0,0,0.02)] min-h-[80px] resize-y
+               ${errors.descriptionEn ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : ''}
+             `}
+            value={data.descriptionEn}
+            onChange={(e) => setData('descriptionEn', e.target.value)}
+            placeholder="Short description for the list..."
+          />
+        </div>
+
+        <div className="flex flex-col gap-1.5 w-full">
+          <label className="text-sm font-medium text-black/70 ml-1">
+            Detailed Description (EN)
+          </label>
+          <textarea
+            className={`
+               w-full px-4 py-3 rounded-xl bg-white border border-black/5 
+               focus:outline-none focus:ring-2 focus:ring-black/5 focus:border-black/20
+               placeholder:text-black/30 text-black transition-all duration-200
+               shadow-[0px_2px_4px_rgba(0,0,0,0.02)] min-h-[200px] resize-y
+               ${errors.longDescriptionEn ? 'border-red-500 focus:border-red-500 focus:ring-red-500/10' : ''}
+             `}
+            value={data.longDescriptionEn}
+            onChange={(e) => setData('longDescriptionEn', e.target.value)}
+            placeholder="Full project description..."
+          />
+        </div>
+        <div className="border-b border-black/10 my-4 pb-2"></div>
 
         <div className="flex flex-col gap-3">
           <label className="text-sm font-medium text-black/70 ml-1">Images</label>

@@ -4,12 +4,14 @@ import { getEnumOptions } from '~/utils/enums'
 import { Tag as TagEnum } from '../../../app/types/tag'
 import { Tag } from '~/components/Tag/tag'
 import { Link } from '@inertiajs/react'
+import { useLanguage } from '~/context/LanguageContext'
 
 interface ProjectsProps {
   projects: Project[]
 }
 
 export const ProjectsList = ({ projects }: ProjectsProps) => {
+  const { t, language } = useLanguage()
   const [selectedTags, setSelectedTags] = useState<TagEnum[]>([TagEnum.Tous])
   const tagOptions = getEnumOptions(TagEnum)
 
@@ -48,8 +50,8 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
     <section id="projects" className="flex flex-col gap-5.5">
       <div className="flex flex-col gap-10.5">
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Portfolio</h2>
-          <h3 className="font-mono text-3xl">Projets sélectionnés</h3>
+          <h2 className="uppercase text-grey text-xl">{t.projects.portfolio}</h2>
+          <h3 className="font-mono text-3xl">{t.projects.selectedProjects}</h3>
         </div>
         <div className="flex gap-2 flex-wrap">
           {tagOptions.map((tagOption) => {
@@ -57,7 +59,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
             return (
               <Tag
                 key={tagOption.value}
-                text={tagOption.label}
+                text={tagOption.label === 'Tous' ? t.projects.all : tagOption.label}
                 appearance={isSelected ? 'filled' : 'outline'}
                 onClick={() => handleTagClick(tagOption.value as TagEnum)}
                 className={`transition-all duration-200 ${!isSelected && 'hover:bg-black/5'}`}
@@ -67,7 +69,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
         </div>
       </div>
       <span className="text-grey font-semibold text-lg">
-        {filteredProjects.length} projets trouvés
+        {filteredProjects.length} {t.projects.projectsFound}
       </span>
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
         {filteredProjects.map((project, index) => (
@@ -88,7 +90,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
             </div>
             <div className="flex flex-col gap-3">
               <h2 className="font-mono text-3xl group-hover:text-gray-600 transition-colors duration-300">
-                {project.name}
+                {language === 'en' && project.nameEn ? project.nameEn : project.name}
               </h2>
               <div className="flex gap-2 flex-wrap">
                 {project.tags
@@ -97,7 +99,11 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
                     <Tag key={tag as string} text={tag as string} appearance="outline" />
                   ))}
               </div>
-              <p>{project.description}</p>
+              <p>
+                {language === 'en' && project.descriptionEn
+                  ? project.descriptionEn
+                  : project.description}
+              </p>
             </div>
           </Link>
         ))}

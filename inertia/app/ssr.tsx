@@ -2,6 +2,7 @@ import ReactDOMServer from 'react-dom/server'
 import { createInertiaApp } from '@inertiajs/react'
 import { Layout } from '~/components/layout/layout'
 import { InertiaPage } from './app'
+import { LanguageProvider } from '~/context/LanguageContext'
 
 export default function render(page: any) {
   return createInertiaApp({
@@ -13,6 +14,10 @@ export default function render(page: any) {
       page.default.layout = page.default.layout || ((page: any) => <Layout children={page} />)
       return page
     },
-    setup: ({ App, props }) => <App {...props} />,
+    setup: ({ App, props }) => (
+      <LanguageProvider>
+        <App {...props} />
+      </LanguageProvider>
+    ),
   })
 }

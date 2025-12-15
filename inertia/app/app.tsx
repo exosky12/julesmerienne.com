@@ -7,6 +7,7 @@ import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { Layout } from '~/components/layout/layout'
 import posthog from 'posthog-js'
+import { LanguageProvider } from '~/context/LanguageContext'
 
 if (typeof window !== 'undefined') {
   const apiKey = import.meta.env.VITE_POSTHOG_API_KEY
@@ -35,6 +36,11 @@ createInertiaApp({
   },
 
   setup({ el, App, props }) {
-    hydrateRoot(el, <App {...props} />)
+    hydrateRoot(
+      el,
+      <LanguageProvider>
+        <App {...props} />
+      </LanguageProvider>
+    )
   },
 })

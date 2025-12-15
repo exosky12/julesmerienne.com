@@ -3,8 +3,10 @@ import { Button } from '~/components/Button/button'
 import { Input } from '~/components/Input/input'
 import React from 'react'
 import { KeyRound } from 'lucide-react'
+import { useLanguage } from '~/context/LanguageContext'
 
 export default function Login() {
+  const { t } = useLanguage()
   const { data, setData, post, processing, errors } = useForm({
     email: '',
     password: '',
@@ -21,14 +23,14 @@ export default function Login() {
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="w-full max-w-md p-8 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-black/5">
           <div className="mb-8 text-center">
-            <h1 className="text-3xl font-mono mb-2">Page de connexion</h1>
-            <p className="text-black/50">Entrez vos identifiants pour vous connecter.</p>
+            <h1 className="text-3xl font-mono mb-2">{t.login.title}</h1>
+            <p className="text-black/50">{t.login.description}</p>
           </div>
 
           <form onSubmit={submit} className="flex flex-col gap-5">
             <Input
               type="email"
-              label="Email"
+              label={t.login.email}
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
               error={errors.email}
@@ -37,7 +39,7 @@ export default function Login() {
 
             <Input
               type="password"
-              label="Password"
+              label={t.login.password}
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
               error={errors.password}
@@ -57,7 +59,7 @@ export default function Login() {
                 disabled={processing}
                 className="w-full justify-center"
               >
-                Se connecter
+                {t.login.submit}
               </Button>
             </div>
           </form>

@@ -1,6 +1,8 @@
 import { Technology } from '../../../app/types/technology'
+import { useLanguage } from '~/context/LanguageContext'
 
 export const Skills = () => {
+  const { t } = useLanguage()
   const frontend = [
     Technology.React,
     Technology.Vue,
@@ -41,7 +43,7 @@ export const Skills = () => {
     <section id="skills" className="flex flex-col gap-16">
       <div className="flex flex-col gap-10.5">
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Frontend</h2>
+          <h2 className="uppercase text-grey text-xl">{t.skills.frontend}</h2>
           <ul className="flex gap-3.5 flex-wrap">
             {frontend.map((tech) => (
               <li key={tech} className="text-xl">
@@ -51,7 +53,7 @@ export const Skills = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Backend</h2>
+          <h2 className="uppercase text-grey text-xl">{t.skills.backend}</h2>
           <ul className="flex gap-3.5 flex-wrap">
             {backend.map((tech) => (
               <li key={tech} className="text-xl">
@@ -61,7 +63,7 @@ export const Skills = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Serveur</h2>
+          <h2 className="uppercase text-grey text-xl">{t.skills.server}</h2>
           <ul className="flex gap-3.5 flex-wrap">
             {server.map((tech) => (
               <li key={tech} className="text-xl">
@@ -71,7 +73,7 @@ export const Skills = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Design</h2>
+          <h2 className="uppercase text-grey text-xl">{t.skills.design}</h2>
           <ul className="flex gap-3.5 flex-wrap">
             {design.map((tech) => (
               <li key={tech} className="text-xl">
@@ -81,7 +83,7 @@ export const Skills = () => {
           </ul>
         </div>
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Outils</h2>
+          <h2 className="uppercase text-grey text-xl">{t.skills.tools}</h2>
           <ul className="flex gap-3.5 flex-wrap">
             {tools.map((tech) => (
               <li key={tech} className="text-xl">
@@ -95,13 +97,13 @@ export const Skills = () => {
         <span>
           <span className="text-6xl font-semibold">4+</span>
           <br />
-          <span className="text-lg">années d'expérience</span>
+          <span className="text-lg">{t.skills.yearsExperience}</span>
         </span>
 
         <span>
           <span className="text-6xl font-semibold">20+</span>
           <br />
-          <span className="text-lg">projets réalisés</span>
+          <span className="text-lg">{t.skills.projectsCompleted}</span>
         </span>
       </div>
     </section>

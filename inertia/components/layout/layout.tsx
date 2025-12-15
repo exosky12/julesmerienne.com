@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link } from '@inertiajs/react'
 import { Button } from '../Button/button'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { useLanguage } from '~/context/LanguageContext'
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
+  const { t, language, toggleLanguage } = useLanguage()
   const [open, setOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -21,7 +23,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         href="#main-content"
         className="fixed top-4 left-4 z-100 -translate-y-[150%] rounded-md bg-black px-4 py-2 text-white transition-transform focus:translate-y-0"
       >
-        Aller au contenu principal
+        {t.layout.skipToContent}
       </a>
 
       <div
@@ -31,19 +33,19 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       >
         <header className="flex items-center justify-between w-5/6 mx-auto">
           <h2 className="font-mono font-bold text-lg">
-            <Link href="/" aria-label="Jules Merienne - Retour à l'accueil">
+            <Link href="/" aria-label={t.layout.homeLabel}>
               Jules Merienne
             </Link>
           </h2>
 
-          <nav className="hidden md:block" aria-label="Navigation principale">
+          <nav className="hidden md:block" aria-label={t.layout.mainNavigation}>
             <ul className="flex gap-5.5">
               <li>
                 <Link
                   className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                   href="/#projects"
                 >
-                  Projets
+                  {t.layout.projects}
                 </Link>
               </li>
               <li>
@@ -51,7 +53,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                   href="/#about"
                 >
-                  À propos
+                  {t.layout.about}
                 </Link>
               </li>
               <li>
@@ -59,7 +61,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                   href="/#skills"
                 >
-                  Compétences
+                  {t.layout.skills}
                 </Link>
               </li>
               <li>
@@ -67,22 +69,29 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   className="hover:text-black/80 transition-all duration-300 ease-in-out active:font-bold"
                   href="/#contact"
                 >
-                  Contact
+                  {t.layout.contact}
                 </Link>
               </li>
             </ul>
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              onClick={toggleLanguage}
+              className="text-sm font-medium hover:opacity-70 transition-opacity flex items-center gap-2"
+              aria-label={language === 'fr' ? 'Switch to English' : 'Passer en français'}
+            >
+              {language === 'fr' ? 'FR 🇫🇷' : 'EN 🇬🇧'}
+            </button>
             <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
-              <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+              <Button icon={<ArrowUpRight strokeWidth={1} />}>{t.layout.bookCall}</Button>
             </a>
           </div>
 
           <button
             className="cursor-pointer md:hidden"
             onClick={() => setOpen(true)}
-            aria-label="Ouvrir le menu"
+            aria-label={t.layout.openMenu}
             aria-expanded={open}
           >
             <Menu aria-hidden="true" />
@@ -102,12 +111,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         className={`fixed top-0 right-0 z-50 h-full w-3/4 max-w-xs bg-white shadow-xl transition-transform duration-300 ease-out p-6 flex flex-col gap-6 ${open ? 'translate-x-0' : 'translate-x-full'}`}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu mobile"
+        aria-label={t.layout.mobileMenu}
       >
         <button
           className="self-end cursor-pointer mr-4"
           onClick={() => setOpen(false)}
-          aria-label="Fermer le menu"
+          aria-label={t.layout.closeMenu}
         >
           <X aria-hidden="true" />
         </button>
@@ -116,29 +125,40 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <ul className="flex flex-col gap-4 text-lg">
             <li>
               <Link href="/#projects" onClick={() => setOpen(false)}>
-                Projets
+                {t.layout.projects}
               </Link>
             </li>
             <li>
               <Link href="/#about" onClick={() => setOpen(false)}>
-                À propos
+                {t.layout.about}
               </Link>
             </li>
             <li>
               <Link href="/#skills" onClick={() => setOpen(false)}>
-                Compétences
+                {t.layout.skills}
               </Link>
             </li>
             <li>
               <Link href="/#contact" onClick={() => setOpen(false)}>
-                Contact
+                {t.layout.contact}
               </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  toggleLanguage()
+                  setOpen(false)
+                }}
+                className="text-left w-full"
+              >
+                {language === 'fr' ? 'FR 🇫🇷' : 'EN 🇬🇧'}
+              </button>
             </li>
           </ul>
         </nav>
 
         <a target="_blank" href="https://cal.com/jules-merienne-ou06tv">
-          <Button icon={<ArrowUpRight strokeWidth={1} />}>Réserver un appel</Button>
+          <Button icon={<ArrowUpRight strokeWidth={1} />}>{t.layout.bookCall}</Button>
         </a>
       </div>
 

@@ -7,6 +7,8 @@ import { useState, useEffect, lazy, Suspense } from 'react'
 import { Skills } from '~/components/Skills/skills'
 import { ClientOnly } from '~/components/ClientOnly/clientOnly'
 
+import { useLanguage } from '~/context/LanguageContext'
+
 // Lazy load non-critical components for SEO to improve performance
 const GridLayers = lazy(() =>
   import('~/components/Grid/grid').then((module) => ({ default: module.GridLayers }))
@@ -20,6 +22,7 @@ interface HomeProps {
 }
 
 export default function Home({ projects }: HomeProps) {
+  const { t } = useLanguage()
   const [variant, setVariant] = useState<number>(0)
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function Home({ projects }: HomeProps) {
 
   return (
     <>
-      <Seo title="Accueil" />
+      <Seo title={t.seo.home} />
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden transition-colors duration-700">
         <ClientOnly>
           <Suspense fallback={null}>

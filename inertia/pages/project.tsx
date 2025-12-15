@@ -7,11 +7,14 @@ import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 
+import { useLanguage } from '~/context/LanguageContext'
+
 interface ProjectProps {
   project: Project
 }
 
 export default function ProjectPage({ project }: ProjectProps) {
+  const { t, language } = useLanguage()
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
 
   // Extract year safely
@@ -21,9 +24,9 @@ export default function ProjectPage({ project }: ProjectProps) {
 
   // Helper to determine link label
   const getLinkLabel = (url: string) => {
-    if (url.includes('github.com')) return 'Code Source'
-    if (url.includes('figma.com')) return 'Design Figma'
-    return 'Site internet'
+    if (url.includes('github.com')) return t.projectDetail.sourceCode
+    if (url.includes('figma.com')) return t.projectDetail.figmaDesign
+    return t.projectDetail.website
   }
 
   const handleNext = useCallback(
@@ -66,8 +69,10 @@ export default function ProjectPage({ project }: ProjectProps) {
   return (
     <>
       <Seo
-        title={project.name}
-        description={project.description}
+        title={language === 'en' && project.nameEn ? project.nameEn : project.name}
+        description={
+          language === 'en' && project.descriptionEn ? project.descriptionEn : project.description
+        }
         image={project.images[0]}
         type="article"
       />
@@ -81,7 +86,7 @@ export default function ProjectPage({ project }: ProjectProps) {
           <button
             className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors p-2 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
             onClick={() => setSelectedImageIndex(null)}
-            aria-label="Fermer la galerie"
+            aria-label={t.projectDetail.closeGallery}
           >
             <X size={24} aria-hidden="true" />
           </button>
@@ -91,7 +96,7 @@ export default function ProjectPage({ project }: ProjectProps) {
               <button
                 className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
                 onClick={handlePrev}
-                aria-label="Image précédente"
+                aria-label={t.projectDetail.prevImage}
               >
                 <ChevronLeft size={32} aria-hidden="true" />
               </button>
@@ -99,7 +104,7 @@ export default function ProjectPage({ project }: ProjectProps) {
               <button
                 className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-3 bg-black/50 hover:bg-white/10 rounded-full z-[110]"
                 onClick={handleNext}
-                aria-label="Image suivante"
+                aria-label={t.projectDetail.nextImage}
               >
                 <ChevronRight size={32} aria-hidden="true" />
               </button>
@@ -134,7 +139,7 @@ export default function ProjectPage({ project }: ProjectProps) {
         <div className="space-y-6">
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight text-black">
-              {project.name}
+              {language === 'en' && project.nameEn ? project.nameEn : project.name}
             </h1>
             <div className="bg-black text-white px-3 py-1.5 rounded-lg text-sm font-mono font-medium">
               {projectYear}
@@ -264,14 +269,23 @@ export default function ProjectPage({ project }: ProjectProps) {
                   ),
                 }}
               >
-                {project.longDescription || project.description}
+                {language === 'en' && project.longDescriptionEn
+                  ? project.longDescriptionEn
+                  : project.longDescription ||
+                    (language === 'en' && project.descriptionEn
+                      ? project.descriptionEn
+                      : project.description)}
               </ReactMarkdown>
             </div>
 
             {/* Summary Box (Short Description) - Only show if we have a long description distinct from the short one */}
-            {project.longDescription && project.description && (
+            {(project.longDescription || project.longDescriptionEn) && (
               <div className="bg-[#F3F3F3]/80 backdrop-blur-xs p-6 rounded-2xl border border-black/5">
-                <p className="text-black/80 leading-relaxed font-medium">{project.description}</p>
+                <p className="text-black/80 leading-relaxed font-medium">
+                  {language === 'en' && project.descriptionEn
+                    ? project.descriptionEn
+                    : project.description}
+                </p>
               </div>
             )}
 

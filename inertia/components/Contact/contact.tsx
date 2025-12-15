@@ -3,8 +3,10 @@ import { FormEvent } from 'react'
 import { Input } from '../Input/input'
 import { Button } from '../Button/button'
 import { Send } from 'lucide-react'
+import { useLanguage } from '~/context/LanguageContext'
 
 export const Contact = () => {
+  const { t } = useLanguage()
   const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
     name: '',
     email: '',
@@ -23,34 +25,34 @@ export const Contact = () => {
     <section id="contact" className="flex flex-col gap-16">
       <div className="flex flex-col gap-13">
         <div className="flex flex-col gap-3.5">
-          <h2 className="uppercase text-grey text-xl">Contact</h2>
-          <h3 className="font-mono text-3xl">Travaillons ensemble</h3>
+          <h2 className="uppercase text-grey text-xl">{t.contact.title}</h2>
+          <h3 className="font-mono text-3xl">{t.contact.subtitle}</h3>
         </div>
         <form className="flex flex-col gap-13" onSubmit={submit}>
           <Input
-            label="Nom"
+            label={t.contact.name}
             name="name"
-            placeholder="Votre nom"
+            placeholder={t.contact.namePlaceholder}
             required
             value={data.name}
             onChange={(e) => setData('name', e.target.value)}
             error={errors.name}
           />
           <Input
-            label="Email"
+            label={t.contact.email}
             name="email"
             type="email"
-            placeholder="Votre email"
+            placeholder={t.contact.emailPlaceholder}
             required
             value={data.email}
             onChange={(e) => setData('email', e.target.value)}
             error={errors.email}
           />
           <Input
-            label="Message"
+            label={t.contact.message}
             name="message"
             type="textarea"
-            placeholder="Décrivez votre projet..."
+            placeholder={t.contact.messagePlaceholder}
             required
             value={data.message}
             onChange={(e) => setData('message', e.target.value)}
@@ -58,25 +60,18 @@ export const Contact = () => {
           />
           <div className="flex flex-col gap-4">
             <Button disabled={processing} icon={<Send strokeWidth={1} />}>
-              {processing ? 'Envoi en cours...' : 'Envoyer le message'}
+              {processing ? t.contact.sending : t.contact.send}
             </Button>
             {recentlySuccessful && (
-              <p className="text-green-600 font-medium">Votre message a bien été envoyé !</p>
+              <p className="text-green-600 font-medium">{t.contact.success}</p>
             )}
           </div>
         </form>
       </div>
       <div className="flex justify-between md:flex-row gap-y-10 flex-col">
         <p className="md:max-w-3/5 w-full">
-          <span className="text-xl font-semibold">
-            Vous avez un projet en tête ? N'hésitez pas à me contacter pour discuter de vos besoins
-            et voir comment je peux vous aider.
-          </span>{' '}
-          <br /> <br />
-          <span className="text-lg text-grey">
-            Je suis disponible pour des missions freelance ou des collaborations. Réponse garantie
-            sous 48h.
-          </span>
+          <span className="text-xl font-semibold">{t.contact.ctaTitle}</span> <br /> <br />
+          <span className="text-lg text-grey">{t.contact.ctaSubtitle}</span>
         </p>
         <div className="flex flex-col justify-end gap-2.5 text-grey font-semibold">
           <a href="mailto:julesmerienne@gmail.com">
