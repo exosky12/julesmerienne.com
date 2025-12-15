@@ -1,12 +1,23 @@
 import { Seo } from '~/components/SEO/Seo'
 import { Hero } from '~/components/Hero/hero'
 import { GridLayers } from '~/components/Grid/grid'
-import { ProjectsList } from '~/components/ProjectsList/projectsList'
 import type Project from '#models/project'
-import { About } from '~/components/About/about'
-import { useState, useEffect } from 'react'
-import { Skills } from '~/components/Skills/skills'
-import { Contact } from '~/components/Contact/contact'
+import { useState, useEffect, lazy, Suspense } from 'react'
+
+const ProjectsList = lazy(() =>
+  import('~/components/ProjectsList/projectsList').then((module) => ({
+    default: module.ProjectsList,
+  }))
+)
+const About = lazy(() =>
+  import('~/components/About/about').then((module) => ({ default: module.About }))
+)
+const Skills = lazy(() =>
+  import('~/components/Skills/skills').then((module) => ({ default: module.Skills }))
+)
+const Contact = lazy(() =>
+  import('~/components/Contact/contact').then((module) => ({ default: module.Contact }))
+)
 
 interface HomeProps {
   projects: Project[]
@@ -35,18 +46,26 @@ export default function Home({ projects }: HomeProps) {
         <div className="-mt-18 sm:mt-0">
           <Hero />
         </div>
-        <div>
-          <ProjectsList projects={projects} />
-        </div>
-        <div>
-          <About />
-        </div>
-        <div>
-          <Skills />
-        </div>
-        <div>
-          <Contact />
-        </div>
+        <Suspense fallback={<div className="h-[500px]" />}>
+          <div>
+            <ProjectsList projects={projects} />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="h-[400px]" />}>
+          <div>
+            <About />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="h-[400px]" />}>
+          <div>
+            <Skills />
+          </div>
+        </Suspense>
+        <Suspense fallback={<div className="h-[400px]" />}>
+          <div>
+            <Contact />
+          </div>
+        </Suspense>
       </div>
     </>
   )
