@@ -183,6 +183,8 @@ export default function ProjectPage({ project }: ProjectProps) {
                     src={img}
                     alt={`${project.name} view ${i + 1}`}
                     className="w-full h-full object-cover"
+                    loading={i > 0 ? 'lazy' : 'eager'}
+                    decoding="async"
                   />
                 </div>
               ))}
@@ -198,6 +200,7 @@ export default function ProjectPage({ project }: ProjectProps) {
                   src={project.images[0]}
                   alt={project.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100 cursor-magnifier"
+                  decoding="async"
                 />
               </div>
 
@@ -213,6 +216,8 @@ export default function ProjectPage({ project }: ProjectProps) {
                         src={img}
                         alt={`${project.name} screenshot ${i + 2}`}
                         className="w-full h-full object-cover hover:opacity-90 transition-all duration-300 group-hover:scale-105 cursor-magnifier"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   ))}
@@ -262,7 +267,7 @@ export default function ProjectPage({ project }: ProjectProps) {
 
             {/* Summary Box (Short Description) - Only show if we have a long description distinct from the short one */}
             {project.longDescription && project.description && (
-              <div className="bg-[#F3F3F3] p-6 rounded-2xl border border-black/5">
+              <div className="bg-[#F3F3F3]/80 backdrop-blur-xs p-6 rounded-2xl border border-black/5">
                 <p className="text-black/80 leading-relaxed font-medium">{project.description}</p>
               </div>
             )}

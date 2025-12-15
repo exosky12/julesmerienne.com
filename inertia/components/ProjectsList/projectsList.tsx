@@ -40,6 +40,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
 
   const filteredProjects = projects.filter((project) => {
     if (selectedTags.includes(TagEnum.Tous)) return true
+    // Cast to unknown then TagEnum to handle potential string/enum type mismatches from JSON serialization
     return project.tags.some((tag) => selectedTags.includes(tag as unknown as TagEnum))
   })
 
@@ -69,17 +70,19 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
         {filteredProjects.length} projets trouvés
       </span>
       <div className="flex justify-between gap-x-4 gap-y-16 flex-wrap">
-        {filteredProjects.map((project) => (
+        {filteredProjects.map((project, index) => (
           <Link
             href={`/projects/${project.slug}`}
             className="flex w-full sm:max-w-1/4 sm:min-w-[350px] flex-col gap-5.5 group cursor-pointer"
             key={project.id}
           >
-            <div className="w-full aspect-square rounded-lg overflow-hidden relative">
+            <div className="w-full aspect-square rounded-lg overflow-hidden relative bg-black/5">
               <img
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 src={project.images[0]}
                 alt={project.name}
+                loading={index < 2 ? 'eager' : 'lazy'}
+                decoding="async"
               />
             </div>
             <div className="flex flex-col gap-3">
@@ -88,9 +91,9 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
               </h2>
               <div className="flex gap-2 flex-wrap">
                 {project.tags
-                  .filter((tag) => tag !== TagEnum.Tous)
+                  .filter((tag) => tag !== (TagEnum.Tous as unknown as string)) // Handle safe filtering
                   .map((tag) => (
-                    <Tag key={tag} text={tag} appearance="outline" />
+                    <Tag key={tag as string} text={tag as string} appearance="outline" />
                   ))}
               </div>
               <p>{project.description}</p>
