@@ -30,7 +30,7 @@ export default function Legal() {
             <section>
               <h2 className="text-2xl font-bold font-mono text-black mb-4">1. Éditeur du site</h2>
               <p>
-                Le site <strong>julesmerienne.com</strong> est édité par{' '}
+                Le site <strong>julesmerienne.dev</strong> est édité par{' '}
                 <strong>Jules Merienne</strong>.<br />
                 <strong>Email :</strong> julesmerienne06@gmail.com <br />
               </p>
