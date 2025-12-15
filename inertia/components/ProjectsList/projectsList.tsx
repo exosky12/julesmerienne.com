@@ -87,11 +87,13 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
                 {project.name}
               </h2>
               <div className="flex gap-2 flex-wrap">
-                {project.tags.map((tag) => (
-                  <Tag key={tag} text={tag} appearance="outline" />
-                ))}
+                {project.tags
+                  .filter((tag) => tag !== TagEnum.Tous)
+                  .map((tag) => (
+                    <Tag key={tag} text={tag} appearance="outline" />
+                  ))}
               </div>
-              <p className="sm:line-clamp-3">{project.description}</p>
+              <p>{project.description}</p>
             </div>
           </Link>
         ))}

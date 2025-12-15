@@ -20,4 +20,8 @@ export enum Technology {
   Git = 'Git',
   CI_CD = 'CI/CD',
   Testing = 'Testing',
+  CSharp = 'C#',
+  DotNet = '.NET',
+  AspNet = 'ASP.NET',
+  MAUI = 'MAUI',
 }
