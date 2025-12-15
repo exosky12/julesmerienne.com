@@ -173,7 +173,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div>© {new Date().getFullYear()} Jules Merienne. All rights reserved.</div>
           <div className="flex items-center gap-6">
             <a
-              href="https://github.com/julesmerienne"
+              href="https://github.com/exosky12"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-black transition-colors"
