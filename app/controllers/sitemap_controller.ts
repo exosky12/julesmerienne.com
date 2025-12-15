@@ -10,7 +10,7 @@ export default class SitemapController {
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
     // Static pages
-    const staticPages = ['', '/#projects', '/#about', '/#skills', '/#contact']
+    const staticPages = ['']
 
     staticPages.forEach((page) => {
       xml += '<url>'
