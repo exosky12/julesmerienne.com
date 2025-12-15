@@ -16,9 +16,19 @@ export default function Home({ projects }: HomeProps) {
   const [variant, setVariant] = useState<number>(0)
 
   useEffect(() => {
+    // Disable grid animation on mobile to improve performance
+    if (window.innerWidth < 768) return
+
+    let ticking = false
     const handleScroll = () => {
-      const newVariant = Math.floor(window.scrollY / 400) % 6
-      setVariant(newVariant)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const newVariant = Math.floor(window.scrollY / 400) % 6
+          setVariant(newVariant)
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })

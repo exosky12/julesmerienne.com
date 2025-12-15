@@ -83,6 +83,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
                 alt={project.name}
                 loading={index < 2 ? 'eager' : 'lazy'}
                 decoding="async"
+                fetchPriority={index === 0 ? 'high' : 'auto'}
               />
             </div>
             <div className="flex flex-col gap-3">
