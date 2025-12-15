@@ -21,7 +21,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <a
         href="#main-content"
-        className="fixed top-4 left-4 z-100 -translate-y-[150%] rounded-md bg-black px-4 py-2 text-white transition-transform focus:translate-y-0"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:shadow-xl focus:rounded-md"
       >
         {t.layout.skipToContent}
       </a>

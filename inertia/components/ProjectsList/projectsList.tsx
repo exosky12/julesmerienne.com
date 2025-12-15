@@ -83,7 +83,7 @@ export const ProjectsList = ({ projects }: ProjectsProps) => {
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 src={project.images[0]}
                 alt={project.name}
-                loading={index < 2 ? 'eager' : 'lazy'}
+                loading={index === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 fetchPriority={index === 0 ? 'high' : 'auto'}
               />

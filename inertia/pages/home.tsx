@@ -56,7 +56,7 @@ export default function Home({ projects }: HomeProps) {
         </ClientOnly>
       </div>
       <div className="flex flex-col gap-48">
-        <div className="-mt-18 sm:mt-0">
+        <div className="sm:mt-0">
           <Hero />
         </div>
         <div>

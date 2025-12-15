@@ -150,11 +150,11 @@ export const GridLayers = ({ variant = 0, showFog = false }: GridLayersProps) =>
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none -z-10 bg-white/50 opacity-75">
-      {/* Background Blobs - Responsive positioning */}
-      <div className="absolute top-[-10%] left-[-20%] w-[70%] h-[50%] bg-linear-to-br from-white to-transparent blur-[100px] opacity-80" />
-      <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[50%] bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-white to-transparent blur-[100px] opacity-80" />
-      <div className="absolute top-[-20%] right-[10%] w-[50%] h-[50%] bg-[#D9D9D9] blur-[150px] opacity-60 rotate-[-130deg]" />
-      <div className="absolute bottom-[10%] right-[10%] w-[50%] h-[50%] bg-[#D9D9D9] blur-[100px] opacity-50" />
+      {/* Background Blobs - Responsive positioning - Hidden on mobile for performance */}
+      <div className="hidden sm:block absolute top-[-10%] left-[-20%] w-[70%] h-[50%] bg-linear-to-br from-white to-transparent blur-[100px] opacity-80" />
+      <div className="hidden sm:block absolute bottom-[-10%] left-[-10%] w-[60%] h-[50%] bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-white to-transparent blur-[100px] opacity-80" />
+      <div className="hidden sm:block absolute top-[-20%] right-[10%] w-[50%] h-[50%] bg-[#D9D9D9] blur-[150px] opacity-60 rotate-[-130deg]" />
+      <div className="hidden sm:block absolute bottom-[10%] right-[10%] w-[50%] h-[50%] bg-[#D9D9D9] blur-[100px] opacity-50" />
 
       {/* Grid Pattern */}
       <div

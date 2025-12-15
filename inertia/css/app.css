@@ -23,22 +23,22 @@
 }
 
 /* PP Mori Extralight */
-@font-face {
+/* @font-face {
   font-family: 'PP Mori';
   src: url('../../resources/fonts/PP_Mori/PPMori-Extralight.otf') format('opentype');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 /* PP Mori Extralight Italic */
-@font-face {
+/* @font-face {
   font-family: 'PP Mori';
   src: url('../../resources/fonts/PP_Mori/PPMori-ExtralightItalic.otf') format('opentype');
   font-weight: 200;
   font-style: italic;
   font-display: swap;
-}
+} */
 
 /* PP Mori SemiBold */
 @font-face {
