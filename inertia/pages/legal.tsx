@@ -14,6 +14,7 @@ export default function Legal() {
             ? 'Legal notice and privacy policy.'
             : 'Mentions légales et politique de confidentialité.'
         }
+        url="https://julesmerienne.dev/mentions-legales"
       />
 
       <div className="fixed top-0 left-0 w-full h-screen -z-50 overflow-hidden">

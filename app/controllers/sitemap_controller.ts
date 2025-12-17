@@ -17,14 +17,6 @@ export default class SitemapController {
       </url>
     `)
 
-    urls.push(`
-      <url>
-        <loc>${baseUrl}/projects</loc>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
-      </url>
-    `)
-
     for (const project of projects) {
       urls.push(`
         <url>
