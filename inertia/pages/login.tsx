@@ -1,4 +1,5 @@
-import { useForm, Head } from '@inertiajs/react'
+import { useForm } from '@inertiajs/react'
+import { Seo } from '~/components/SEO/Seo'
 import { Button } from '~/components/Button/button'
 import { Input } from '~/components/Input/input'
 import React from 'react'
@@ -19,7 +20,11 @@ export default function Login() {
 
   return (
     <>
-      <Head title="Login" />
+      <Seo
+        title={t.login.title}
+        description={t.login.description}
+        url="https://julesmerienne.dev/login"
+      />
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="w-full max-w-md p-8 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-black/5">
           <div className="mb-8 text-center">
