@@ -12,6 +12,11 @@ const inertiaConfig = defineConfig({
    */
   sharedData: {
     // user: (ctx) => ctx.inertia.always(() => ctx.auth.user),
+    canonicalUrl: (ctx) => {
+      const url = ctx.request.url(false)
+      const cleanPath = url === '/' ? '' : url.replace(/\/$/, '')
+      return `https://julesmerienne.dev${cleanPath}/`
+    },
   },
 
   /**

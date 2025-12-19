@@ -20,11 +20,7 @@ export default function Login() {
 
   return (
     <>
-      <Seo
-        title={t.login.title}
-        description={t.login.description}
-        url="https://julesmerienne.dev/login"
-      />
+      <Seo title={t.login.title} description={t.login.description} />
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="w-full max-w-md p-8 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-black/5">
           <div className="mb-8 text-center">

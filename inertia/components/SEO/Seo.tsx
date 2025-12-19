@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Head, usePage } from '@inertiajs/react'
 
 interface SeoProps {
   title: string
@@ -16,13 +16,16 @@ export const Seo = ({
   title,
   description = 'Portfolio de Jules Merienne - Développeur Full Stack & Créatif. Découvrez mes projets, compétences et contactez-moi pour vos besoins digitaux.',
   image = 'https://julesmerienne.dev/myself.webp', // Fallback to provided self portrait
-  url = 'https://julesmerienne.dev',
+  url,
   type = 'website',
   publishedTime,
   author = 'Jules Merienne',
   twitterCard = 'summary_large_image',
   children,
 }: SeoProps) => {
+  const { canonicalUrl } = usePage().props as any
+  const finalUrl = url || canonicalUrl || 'https://julesmerienne.dev'
+
   const siteName = 'Jules Merienne'
   const fullTitle = `${title} | ${siteName}`
 
@@ -31,7 +34,7 @@ export const Seo = ({
     '@context': 'https://schema.org',
     '@type': type === 'profile' ? 'Person' : 'WebSite',
     'name': siteName,
-    'url': url,
+    'url': finalUrl,
     'description': description,
     'author': {
       '@type': 'Person',
@@ -45,10 +48,10 @@ export const Seo = ({
     <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={finalUrl} />
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={finalUrl} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
@@ -56,7 +59,7 @@ export const Seo = ({
       <meta property="og:locale" content="fr_FR" />
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
-      <meta name="twitter:url" content={url} />
+      <meta name="twitter:url" content={finalUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />

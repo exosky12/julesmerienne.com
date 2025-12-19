@@ -76,7 +76,6 @@ export default function ProjectPage({ project, nextProject }: ProjectProps) {
           language === 'en' && project.descriptionEn ? project.descriptionEn : project.description
         }
         image={project.images[0]}
-        url={`https://julesmerienne.dev/projects/${project.slug}`}
         type="article"
       />
 
