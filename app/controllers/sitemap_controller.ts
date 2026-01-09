@@ -20,7 +20,7 @@ export default class SitemapController {
     for (const project of projects) {
       urls.push(`
         <url>
-          <loc>${baseUrl}/projects/${project.slug.toLowerCase()}</loc>
+          <loc>${baseUrl}/projects/${project.slug.toLowerCase()}/</loc>
           <lastmod>${project.updatedAt.toISODate()}</lastmod>
           <changefreq>monthly</changefreq>
           <priority>0.8</priority>
