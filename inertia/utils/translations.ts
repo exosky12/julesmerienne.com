@@ -91,6 +91,11 @@ export const translations = {
       Design: 'Design',
       Automatisation: 'Automatisation',
     },
+    notFound: {
+      title: 'Page introuvable',
+      description: "Oups ! La page que vous cherchez n'existe pas ou a été déplacée.",
+      back: "Retour à l'accueil",
+    },
   },
   en: {
     layout: {
@@ -183,6 +188,11 @@ export const translations = {
       Logiciel: 'Software',
       Design: 'Design',
       Automatisation: 'Automation',
+    },
+    notFound: {
+      title: 'Page not found',
+      description: 'Oops! The page you are looking for does not exist or has been moved.',
+      back: 'Back to home',
     },
   },
 }
